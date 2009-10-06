@@ -39,6 +39,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.AutoRegistration", "U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.AutoRegistration", "Tests.AutoRegistration\Tests.AutoRegistration.csproj", "{E42A2373-AC3D-484E-B2AB-E658A7ED4EE2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Moq", "Moq", "{13B0EAEE-D095-42CD-A6F5-F886895922E7}"
+	ProjectSection(SolutionItems) = preProject
+		Moq\Moq.dll = Moq\Moq.dll
+		Moq\Moq.pdb = Moq\Moq.pdb
+		Moq\Moq.xml = Moq\Moq.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
