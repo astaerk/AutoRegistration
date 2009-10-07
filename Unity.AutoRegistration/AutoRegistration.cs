@@ -9,13 +9,9 @@ namespace Unity.AutoRegistration
     public class AutoRegistration
     {
         private readonly List<RegistrationEntry> _registrationEntries = new List<RegistrationEntry>();
-        private readonly List<Predicate<Assembly>> _excludedAssemblyFilters
-            = new List<Predicate<Assembly>>(new Predicate<Assembly>[]
-                                                {
-                                                    a => a.GetName().FullName.StartsWith("System")
-                                                         || a.GetName().FullName.StartsWith("mscorlib")
-                                                         || a.GetName().FullName.StartsWith("Microsoft.VisualStudio")
-                                                });
+        private readonly List<Predicate<Assembly>> _excludedAssemblyFilters = new List<Predicate<Assembly>>();
+
+        private readonly List<Predicate<Assembly>> _includedAssemblyFilters = new List<Predicate<Assembly>>();
 
         private readonly List<Predicate<Type>> _excludedTypeFilters = new List<Predicate<Type>>();
         private readonly IUnityContainer _container;
@@ -55,15 +51,21 @@ namespace Unity.AutoRegistration
             return this;
         }
 
-        public AutoRegistration ClearExcludedAssemlyFilters()
-        {
-            _excludedAssemblyFilters.Clear();
-            return this;
-        }
-
         public AutoRegistration ExcludeAssemblies(Predicate<Assembly> filter)
         {
             _excludedAssemblyFilters.Add(filter);
+            return this;
+        }
+
+        public AutoRegistration IncludeAssemblies(Predicate<Assembly> filter)
+        {
+            _includedAssemblyFilters.Add(filter);
+            return this;
+        }
+
+        public AutoRegistration IncludeAllLoadedAssemblies()
+        {
+            _includedAssemblyFilters.Insert(0, a => true);
             return this;
         }
 
@@ -78,10 +80,11 @@ namespace Unity.AutoRegistration
             foreach (var type in AppDomain.CurrentDomain
                 .GetAssemblies()
                 .Where(a => !_excludedAssemblyFilters.Any(f => f(a)))
+                .Where(a => _includedAssemblyFilters.Any(f => f(a)))
                 .SelectMany(a => a.GetTypes())
                 .Where(t => !_excludedTypeFilters.Any(f => f(t))))
-                foreach (var regEntry in _registrationEntries)
-                    regEntry.RegisterIfSatisfiesFilter(type);
+                foreach (var entry in _registrationEntries)
+                    entry.RegisterIfSatisfiesFilter(type);
         }
 
         private class RegistrationEntry

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Reflection;
 
 namespace Unity.AutoRegistration
 {
@@ -29,6 +30,21 @@ namespace Unity.AutoRegistration
         public static bool AnyType(this Type type)
         {
             return true;
+        }
+
+        public static bool TypeIs<T>(this Type type)
+        {
+            return type == typeof(T);
+        }
+
+        public static bool AnyAssembly(this Assembly assembly)
+        {
+            return true;
+        }
+
+        public static bool ContainsType<T>(this Assembly assembly)
+        {
+            return typeof (T).Assembly == assembly;
         }
     }
 }

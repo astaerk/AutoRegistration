@@ -9,15 +9,21 @@ namespace Unity.AutoRegistration
     {
         private Type _type;
 
-        private Func<Type, ICollection<Type>> _interfacesToRegisterAsResolver = t => new List<Type>();
+        private Func<Type, IEnumerable<Type>> _interfacesToRegisterAsResolver = t => new List<Type>(t.GetInterfaces());
         private Func<Type, string> _nameToRegisterWithResolver = t => String.Empty;
+        private Func<Type, LifetimeManager> _lifetimeManagerToRegisterWithResolver = t => new TransientLifetimeManager();
 
-        public Registration()
+        public LifetimeManager LifetimeManagerToRegisterWith
         {
-            LifetimeManagerToRegisterWith = new TransientLifetimeManager();
+            get
+            {
+                return _lifetimeManagerToRegisterWithResolver(_type);
+            }
+            set
+            {
+                _lifetimeManagerToRegisterWithResolver = t => value;
+            }
         }
-
-        public LifetimeManager LifetimeManagerToRegisterWith { get; set; }
 
         public string NameToRegisterWith
         {
@@ -31,11 +37,15 @@ namespace Unity.AutoRegistration
             }
         }
 
-        public ICollection<Type> InterfacesToRegisterAs
+        public IEnumerable<Type> InterfacesToRegisterAs
         {
             get
             {
                 return _interfacesToRegisterAsResolver(_type);
+            }
+            set
+            {
+                _interfacesToRegisterAsResolver = t => value;
             }
         }
 
@@ -51,25 +61,31 @@ namespace Unity.AutoRegistration
 
         public IFluentRegistration UsingLifetime<TLifetimeManager>() where TLifetimeManager : LifetimeManager, new()
         {
-            LifetimeManagerToRegisterWith = new TLifetimeManager();
+            _lifetimeManagerToRegisterWithResolver = t => new TLifetimeManager();
+            return this;
+        }
+
+        public IFluentRegistration UsingLifetime(Func<Type, LifetimeManager> lifetimeResolver)
+        {
+            _lifetimeManagerToRegisterWithResolver = lifetimeResolver;
             return this;
         }
 
         public IFluentRegistration UsingLifetime<TLifetimeManager>(TLifetimeManager manager) where TLifetimeManager : LifetimeManager
         {
-            LifetimeManagerToRegisterWith = manager;
+            _lifetimeManagerToRegisterWithResolver = t => manager;
             return this;
         }
 
         public IFluentRegistration UsingSingetonMode()
         {
-            LifetimeManagerToRegisterWith = new ContainerControlledLifetimeManager();
+            _lifetimeManagerToRegisterWithResolver = t => new ContainerControlledLifetimeManager();
             return this;
         }
 
         public IFluentRegistration UsingPerCallMode()
         {
-            LifetimeManagerToRegisterWith = new TransientLifetimeManager();
+            _lifetimeManagerToRegisterWithResolver = t => new TransientLifetimeManager();
             return this;
         }
 
@@ -94,6 +110,12 @@ namespace Unity.AutoRegistration
         public IFluentRegistration AsInterface<TContact>() where TContact : class
         {
             _interfacesToRegisterAsResolver = t => new List<Type> { typeof(TContact) };
+            return this;
+        }
+
+        public IFluentRegistration AsInterface(Func<Type, Type> interfaceResolver)
+        {
+            _interfacesToRegisterAsResolver = t => new List<Type> {interfaceResolver(t)};
             return this;
         }
 

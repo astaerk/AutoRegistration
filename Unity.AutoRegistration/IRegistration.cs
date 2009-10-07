@@ -8,7 +8,7 @@ namespace Unity.AutoRegistration
     {
         LifetimeManager LifetimeManagerToRegisterWith { get; set; }
         string NameToRegisterWith { get; set; }
-        ICollection<Type> InterfacesToRegisterAs { get; }
+        IEnumerable<Type> InterfacesToRegisterAs { get; set; }
         Type Type { set; }
     }
 }
