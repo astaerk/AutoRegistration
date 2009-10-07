@@ -54,11 +54,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoRegistration.cs" />
+    <Compile Include="IAutoRegistration.cs" />
     <Compile Include="If.cs" />
     <Compile Include="IFluentRegistration.cs" />
-    <Compile Include="IRegistration.cs" />
+    <Compile Include="IRegistrationOptions.cs" />
     <Compile Include="Then.cs" />
-    <Compile Include="Registration.cs" />
+    <Compile Include="RegistrationOptions.cs" />
     <Compile Include="Extension.cs" />
   </ItemGroup>
   <ItemGroup>

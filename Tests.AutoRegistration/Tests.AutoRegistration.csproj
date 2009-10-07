@@ -59,6 +59,8 @@
     <Compile Include="CustomerRepository.cs" />
     <Compile Include="ICache.cs" />
     <Compile Include="ICustomerRepository.cs" />
+    <Compile Include="IOrderRepository.cs" />
+    <Compile Include="MyLifetimeManager.cs" />
     <Compile Include="TestCache.cs" />
     <Compile Include="TestLogger.cs" />
   </ItemGroup>

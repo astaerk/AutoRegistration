@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Tests.Contract;
 using Unity.AutoRegistration;
 using Moq;
 
@@ -35,7 +36,7 @@ namespace Tests.AutoRegistration
                     realContainer.RegisterType(from, to, name, lifetime);
                 });
             
-            // Using reflection hack, because current version of Moq doesn't support callbacks with more than 4 arguments
+            // Using reflection, because current version of Moq doesn't support callbacks with more than 4 arguments
             setup
                 .GetType()
                 .GetMethod("SetCallbackWithArguments", BindingFlags.NonPublic | BindingFlags.Instance)
@@ -77,7 +78,7 @@ namespace Tests.AutoRegistration
         {
             _container
                 .ConfigureAutoRegistration()
-                .Include(If.TypeIs<TestCache>, Then.Register())
+                .Include(If.Is<TestCache>, Then.Register())
                 .ApplyAutoRegistration();
 
             Assert.IsFalse(_registered.Any());
@@ -89,7 +90,7 @@ namespace Tests.AutoRegistration
             _container
                 .ConfigureAutoRegistration()
                 .IncludeAssemblies(_testAssemblies)
-                .Include(If.TypeIs<TestCache>, Then.Register());
+                .Include(If.Is<TestCache>, Then.Register());
 
             Assert.IsFalse(_registered.Any());
         }
@@ -100,7 +101,7 @@ namespace Tests.AutoRegistration
             _container
                 .ConfigureAutoRegistration()
                 .IncludeAssemblies(_testAssemblies)
-                .Include(If.TypeIs<TestCache>, Then.Register())
+                .Include(If.Is<TestCache>, Then.Register())
                 .ExcludeAssemblies(If.ContainsType<TestCache>)
                 .ApplyAutoRegistration();
 
@@ -113,7 +114,7 @@ namespace Tests.AutoRegistration
             _container
                 .ConfigureAutoRegistration()
                 .LoadAssemblyFrom(String.Format("{0}.dll", KnownExternalAssembly))
-                .Include(If.AnyType, Then.Register())
+                .Include(If.Any, Then.Register())
                 .ApplyAutoRegistration();
 
             Assert.IsFalse(_registered.Any());
@@ -126,7 +127,7 @@ namespace Tests.AutoRegistration
                 .ConfigureAutoRegistration()
                 .LoadAssemblyFrom(String.Format("{0}.dll", KnownExternalAssembly))
                 .IncludeAssemblies(a => a.GetName().FullName.Contains(KnownExternalAssembly))
-                .Include(If.AnyType, Then.Register())
+                .Include(If.Any, Then.Register())
                 .ApplyAutoRegistration();
 
             Assert.IsTrue(_registered.Any());
@@ -137,9 +138,9 @@ namespace Tests.AutoRegistration
         {
             _container
                 .ConfigureAutoRegistration()
-                .Exclude(If.TypeIs<TestCache>)
+                .Exclude(If.Is<TestCache>)
                 .IncludeAssemblies(_testAssemblies)
-                .Include(If.TypeIs<TestCache>, Then.Register())
+                .Include(If.Is<TestCache>, Then.Register())
                 .ApplyAutoRegistration();
 
             Assert.IsFalse(_registered.Any());
@@ -151,7 +152,7 @@ namespace Tests.AutoRegistration
             _container
                 .ConfigureAutoRegistration()
                 .IncludeAssemblies(_testAssemblies)
-                .Include(If.TypeIs<TestCache>, Then.Register())
+                .Include(If.Is<TestCache>, Then.Register())
                 .ApplyAutoRegistration();
 
             Assert.IsTrue(_registered.Count == 2);
@@ -175,14 +176,14 @@ namespace Tests.AutoRegistration
             const string registrationName = "TestName";
             
             var registration = Then.Register();
-            registration.InterfacesToRegisterAs = new[] {typeof(ICache)};
-            registration.LifetimeManagerToRegisterWith = new ContainerControlledLifetimeManager();
-            registration.NameToRegisterWith = registrationName;
+            registration.Interfaces = new[] {typeof(ICache)};
+            registration.LifetimeManager = new ContainerControlledLifetimeManager();
+            registration.Name = registrationName;
 
             _container
                 .ConfigureAutoRegistration()
                 .IncludeAssemblies(_testAssemblies)
-                .Include(If.TypeIs<TestCache>, registration)
+                .Include(If.Is<TestCache>, registration)
                 .ApplyAutoRegistration();
 
             Assert.IsTrue(_registered.Count == 1);
@@ -206,6 +207,30 @@ namespace Tests.AutoRegistration
                 Name = name;
                 Lifetime = lifetime;
             }
+        }
+
+        private void Example()
+        {
+            var container = new UnityContainer();
+
+            container
+                .ConfigureAutoRegistration()
+                .LoadAssemblyFrom("Plugin.dll")
+                .IncludeAllLoadedAssemblies()
+                .ExcludeSystemAssemblies()
+                .ExcludeAssemblies(a => a.GetName().FullName.Contains("Test"))
+                .Include(If.Implements<ILogger>, Then.Register().UsingPerCallMode())
+                .Include(If.ImplementsITypeName, Then.Register().WithTypeName())
+                .Include(If.Implements<ICustomerRepository>, Then.Register().WithName("Sample"))
+                .Include(If.Implements<IOrderRepository>,
+                         Then.Register().AsSingleInterfaceOfType().UsingPerCallMode())
+                .Include(If.DecoratedWith<LoggerAttribute>,
+                         Then.Register()
+                             .AsInterface<IDisposable>()
+                             .WithTypeName()
+                             .UsingLifetime<MyLifetimeManager>())
+                .Exclude(t => t.Name.Contains("Trace"))
+                .ApplyAutoRegistration();
         }
     }
 }

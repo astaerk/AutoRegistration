@@ -6,21 +6,42 @@ using Microsoft.Practices.Unity;
 
 namespace Unity.AutoRegistration
 {
+    /// <summary>
+    /// Extension methods to various types
+    /// </summary>
     public static class Extension
     {
+        /// <summary>
+        /// Gets type attribute.
+        /// </summary>
+        /// <typeparam name="TAttr">Type of the attribute.</typeparam>
+        /// <param name="type">Target type.</param>
+        /// <returns>Attribute value</returns>
         public static TAttr GetAttribute<TAttr>(this Type type) 
             where TAttr : Attribute
         {
             return type.GetCustomAttributes(false).Single(a => typeof (TAttr) == a.GetType()) as TAttr;
         }
 
-        public static AutoRegistration LoadAssemblyFrom(this AutoRegistration autoRegistration, string assemblyPath)
+        /// <summary>
+        /// Loads assembly from given assembly file name.
+        /// </summary>
+        /// <param name="autoRegistration">Auto registration.</param>
+        /// <param name="assemblyPath">Assembly path.</param>
+        /// <returns>Auto registration</returns>
+        public static IAutoRegistration LoadAssemblyFrom(this IAutoRegistration autoRegistration, string assemblyPath)
         {
             Assembly.LoadFrom(assemblyPath);
             return autoRegistration;
         }
 
-        public static AutoRegistration LoadAssembliesFrom(this AutoRegistration autoRegistration, IEnumerable<string> assemblyPaths)
+        /// <summary>
+        /// Loads assemblies from given assembly file name.
+        /// </summary>
+        /// <param name="autoRegistration">Auto registration.</param>
+        /// <param name="assemblyPaths">Assembly paths.</param>
+        /// <returns>Auto registration</returns>
+        public static IAutoRegistration LoadAssembliesFrom(this IAutoRegistration autoRegistration, IEnumerable<string> assemblyPaths)
         {
             foreach (var assemblyPath in assemblyPaths)
             {
@@ -29,14 +50,24 @@ namespace Unity.AutoRegistration
             return autoRegistration;
         }
 
-        public static AutoRegistration ConfigureAutoRegistration(this IUnityContainer container)
+        /// <summary>
+        /// Configures auto registration - starts chain of fluent configuration
+        /// </summary>
+        /// <param name="container">Unity container.</param>
+        /// <returns>Auto registration</returns>
+        public static IAutoRegistration ConfigureAutoRegistration(this IUnityContainer container)
         {
             if (container == null)
                 throw new ArgumentNullException("container");
             return new AutoRegistration(container);
         }
 
-        public static AutoRegistration ExcludeSystemAssemblies(this AutoRegistration autoRegistration)
+        /// <summary>
+        /// Adds rule to exclude certain assemblies (that name starts with System or mscorlib) 
+        /// and not consider their types
+        /// </summary>
+        /// <returns>Auto registration</returns>
+        public static IAutoRegistration ExcludeSystemAssemblies(this IAutoRegistration autoRegistration)
         {
             autoRegistration.ExcludeAssemblies(a => a.GetName().FullName.StartsWith("System") 
                 || a.GetName().FullName.StartsWith("mscorlib"));

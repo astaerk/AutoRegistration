@@ -6,76 +6,145 @@ using Microsoft.Practices.Unity;
 
 namespace Unity.AutoRegistration
 {
-    public class AutoRegistration
+    /// <summary>
+    /// Auto Registration extends popular Unity IoC container 
+    /// and provides nice fluent syntax to configure rules for automatic types registration
+    /// </summary>
+    public class AutoRegistration : IAutoRegistration
     {
         private readonly List<RegistrationEntry> _registrationEntries = new List<RegistrationEntry>();
+        
         private readonly List<Predicate<Assembly>> _excludedAssemblyFilters = new List<Predicate<Assembly>>();
-
+        private readonly List<Predicate<Type>> _excludedTypeFilters = new List<Predicate<Type>>();
         private readonly List<Predicate<Assembly>> _includedAssemblyFilters = new List<Predicate<Assembly>>();
 
-        private readonly List<Predicate<Type>> _excludedTypeFilters = new List<Predicate<Type>>();
         private readonly IUnityContainer _container;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AutoRegistration"/> class.
+        /// </summary>
+        /// <param name="container">Unity container.</param>
         public AutoRegistration (IUnityContainer container)
         {
+            if (container == null)
+                throw new ArgumentNullException("container");
             _container = container;
         }
 
-        public AutoRegistration Include(
+        /// <summary>
+        /// Adds rule to include certain types that satisfy specified type filter
+        /// and register them using specified registrator function
+        /// </summary>
+        /// <param name="typeFilter">Type filter.</param>
+        /// <param name="registrator">Registrator function.</param>
+        /// <returns>Auto registration</returns>
+        public virtual IAutoRegistration Include(
             Predicate<Type> typeFilter,
             Action<Type, IUnityContainer> registrator)
         {
+            if (typeFilter == null)
+                throw new ArgumentNullException("typeFilter");
+            if (registrator == null)
+                throw new ArgumentNullException("registrator");
+
             _registrationEntries.Add(new RegistrationEntry(typeFilter, registrator, _container));
             return this;
         }
 
-        public AutoRegistration Include(
+        /// <summary>
+        /// Adds rule to include certain types that satisfy specified type filter
+        /// and register them using specified registration options
+        /// </summary>
+        /// <param name="typeFilter">Type filter.</param>
+        /// <param name="registrationOptions">RegistrationOptions options.</param>
+        /// <returns>Auto registration</returns>
+        public virtual IAutoRegistration Include(
             Predicate<Type> typeFilter,
-            IRegistration registration)
+            IRegistrationOptions registrationOptions)
         {
+            if (typeFilter == null)
+                throw new ArgumentNullException("typeFilter");
+            if (registrationOptions == null)
+                throw new ArgumentNullException("registrationOptions");
+
             _registrationEntries.Add(new RegistrationEntry(
                                          typeFilter,
                                          (t, c) =>
                                              {
-                                                 registration.Type = t;
-                                                 foreach (var contract in registration.InterfacesToRegisterAs)
+                                                 registrationOptions.Type = t;
+                                                 foreach (var contract in registrationOptions.Interfaces)
                                                  {
                                                      c.RegisterType(
                                                          contract,
                                                          t,
-                                                         registration.NameToRegisterWith,
-                                                         registration.LifetimeManagerToRegisterWith);
+                                                         registrationOptions.Name,
+                                                         registrationOptions.LifetimeManager);
                                                  }
                                              },
                                          _container));
             return this;
         }
 
-        public AutoRegistration ExcludeAssemblies(Predicate<Assembly> filter)
+        /// <summary>
+        /// Adds rule to exclude certain assemblies that satisfy specified assembly filter
+        /// and not consider their types
+        /// </summary>
+        /// <param name="filter">Type filter.</param>
+        /// <returns>Auto registration</returns>
+        public virtual IAutoRegistration ExcludeAssemblies(Predicate<Assembly> filter)
         {
+            if (filter == null)
+                throw new ArgumentNullException("filter");
+
             _excludedAssemblyFilters.Add(filter);
             return this;
         }
 
-        public AutoRegistration IncludeAssemblies(Predicate<Assembly> filter)
+        /// <summary>
+        /// Adds rule to include certain assemblies that satisfy specified assembly filter
+        /// and consider their types when checking type rules
+        /// </summary>
+        /// <param name="filter">Assembly filter.</param>
+        /// <returns>Auto registration</returns>
+        public virtual IAutoRegistration IncludeAssemblies(Predicate<Assembly> filter)
         {
+            if (filter == null)
+                throw new ArgumentNullException("filter");
+
             _includedAssemblyFilters.Add(filter);
             return this;
         }
 
-        public AutoRegistration IncludeAllLoadedAssemblies()
+        /// <summary>
+        /// Adds rule to include all assemblies that are loaded in current application domain
+        /// and consider their types when checking type rules
+        /// </summary>
+        /// <returns>Auto registration</returns>
+        public virtual IAutoRegistration IncludeAllLoadedAssemblies()
         {
             _includedAssemblyFilters.Insert(0, a => true);
             return this;
         }
 
-        public AutoRegistration Exclude(Predicate<Type> filter)
+        /// <summary>
+        /// Adds rule to exclude certain types that satisfy specified type filter and not register them
+        /// </summary>
+        /// <param name="filter">Type filter.</param>
+        /// <returns>Auto registration</returns>
+        public virtual IAutoRegistration Exclude(Predicate<Type> filter)
         {
+            if (filter == null)
+                throw new ArgumentNullException("filter");
+
             _excludedTypeFilters.Add(filter);
             return this;
         }
 
-        public void ApplyAutoRegistration()
+        /// <summary>
+        /// Applies auto registration - scans loaded assemblies,
+        /// check specified rules and register types that satisfy these rules
+        /// </summary>
+        public virtual void ApplyAutoRegistration()
         {   
             foreach (var type in AppDomain.CurrentDomain
                 .GetAssemblies()
