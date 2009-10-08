@@ -186,11 +186,29 @@ namespace Tests.AutoRegistration
                 .Include(If.Is<TestCache>, registration)
                 .ApplyAutoRegistration();
 
-            Assert.IsTrue(_registered.Count == 1);
+            Assert.AreEqual(1, _registered.Count);
             var registerEvent = _registered.Single();
             Assert.AreEqual(typeof(TestCache), registerEvent.To);
             Assert.AreEqual(typeof(ContainerControlledLifetimeManager), registerEvent.Lifetime.GetType());
             Assert.AreEqual(registrationName, registerEvent.Name);
+        }
+
+        [TestMethod]
+        public void WhenHaveMoreThanOneRegistrationRulesTypesRegisteredAsExpected()
+        {
+            _container
+                .ConfigureAutoRegistration()
+                .IncludeAssemblies(_testAssemblies)
+                .Include(If.Implements<ICustomerRepository>,
+                         Then.Register()
+                             .AsSingleInterfaceOfType()
+                             .WithTypeName()
+                             .UsingPerThreadMode())
+                .Include(If.DecoratedWith<LoggerAttribute>, Then.Register().AsAllInterfacesOfType())
+                .ApplyAutoRegistration();
+
+            // 2 types implement ICustomerRepository, LoggerAttribute decorated type implement 2 interfaces
+            Assert.AreEqual(4, _registered.Count);
         }
 
         private class RegisterEvent

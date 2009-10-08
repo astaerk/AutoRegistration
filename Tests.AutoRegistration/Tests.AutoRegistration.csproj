@@ -62,6 +62,7 @@
     <Compile Include="IOrderRepository.cs" />
     <Compile Include="MyLifetimeManager.cs" />
     <Compile Include="TestCache.cs" />
+    <Compile Include="TestCustomerRepository.cs" />
     <Compile Include="TestLogger.cs" />
   </ItemGroup>
   <ItemGroup>
