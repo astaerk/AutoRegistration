@@ -50,7 +50,8 @@ namespace Unity.AutoRegistration
             if (type == null)
                 throw new ArgumentNullException("type");
 
-            return type.GetInterfaces().Any(i => i.Name.TrimStart('I') == type.Name);
+            return type.GetInterfaces().Any(i => i.Name.StartsWith("I") 
+                && i.Name.Remove(0, 1) == type.Name);
         }
 
         /// <summary>

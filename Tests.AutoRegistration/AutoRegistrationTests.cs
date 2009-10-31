@@ -211,6 +211,13 @@ namespace Tests.AutoRegistration
             Assert.AreEqual(4, _registered.Count);
         }
 
+        [TestMethod]
+        public void ImplementsITypeName()
+        {
+            Assert.IsTrue(typeof(CustomerRepository).ImplementsITypeName());
+            Assert.IsTrue(typeof(Introduction).ImplementsITypeName());
+        }
+
         private class RegisterEvent
         {
             public Type From { get; private set; }
@@ -225,6 +232,15 @@ namespace Tests.AutoRegistration
                 Name = name;
                 Lifetime = lifetime;
             }
+        }
+
+        public class Introduction : IIntroduction
+        {
+            
+        }
+
+        public interface IIntroduction
+        {
         }
 
         private void Example()
