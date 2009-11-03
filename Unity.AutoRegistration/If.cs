@@ -39,6 +39,26 @@ namespace Unity.AutoRegistration
         }
 
         /// <summary>
+        /// Determines whether type implements interface that can be constructed from specified open-generic interface
+        /// </summary>
+        /// <param name="type">Target type.</param>
+        /// <param name="contract">Type of the open-generic interface.</param>
+        /// <returns>True if type implements interface that can be constructed from specified open-generic interface, otherwise false</returns>
+        public static bool ImplementsOpenGeneric(this Type type, Type contract)
+        {
+            if (type == null)
+                throw new ArgumentNullException("type");
+            if (contract == null)
+                throw new ArgumentNullException("contract");
+            if (!contract.IsInterface)
+                throw new ArgumentException("Provided contract has to be an interface", "contract");
+            if (!contract.IsGenericTypeDefinition)
+                throw new ArgumentException("Provided contract has to be an open generic", "contract");
+            
+            return type.GetInterfaces().Any(i => i.IsGenericType && (i.GetGenericTypeDefinition() == contract));
+        }
+
+        /// <summary>
         /// Determines whether type implements interface that name looks like ITypeName 
         /// (first letter is I, the rest is implementing type name),
         /// for example this method returns true for type that looks like - class Logger : ILogger

@@ -18,13 +18,14 @@ namespace Tests.AutoRegistration
         private readonly Predicate<Assembly> _testAssemblies = a => a.GetName().FullName.StartsWith("Tests.");
         private IUnityContainer _container;
         private delegate void RegistrationCallback(Type from, Type to, string name, LifetimeManager lifetime, InjectionMember[] ims);
+        private IUnityContainer _realContainer;
 
         private const string KnownExternalAssembly = "Microsoft.Practices.Unity.Interception";
 
         [TestInitialize]
         public void SetUp()
         {
-            var realContainer = new UnityContainer();
+            _realContainer = new UnityContainer();
 
             _containerMock = new Mock<IUnityContainer>();
             _registered = new List<RegisterEvent>();
@@ -33,7 +34,7 @@ namespace Tests.AutoRegistration
             var callback = new RegistrationCallback((from, to, name, lifetime, ips) =>
                 {
                     _registered.Add(new RegisterEvent(from, to, name, lifetime));
-                    realContainer.RegisterType(from, to, name, lifetime);
+                    _realContainer.RegisterType(from, to, name, lifetime);
                 });
             
             // Using reflection, because current version of Moq doesn't support callbacks with more than 4 arguments
@@ -216,6 +217,27 @@ namespace Tests.AutoRegistration
         {
             Assert.IsTrue(typeof(CustomerRepository).ImplementsITypeName());
             Assert.IsTrue(typeof(Introduction).ImplementsITypeName());
+        }
+
+        [TestMethod]
+        public void WhenImplementsOpenGenericTypesRegisteredAsExpected()
+        {
+            _container
+                .ConfigureAutoRegistration()
+                .IncludeAssemblies(_testAssemblies)
+                .Include(type => type.ImplementsOpenGeneric(typeof(IHandlerFor<>)), 
+                    Then.Register().AsFirstInterfaceOfType().WithTypeName())
+                .ApplyAutoRegistration();
+
+            Assert.AreEqual(2, _registered.Count);
+            Assert.IsTrue(_registered
+                .Select(r => r.To)
+                .SequenceEqual(new[] { typeof(DomainEventHandlerOne), typeof(DomainEventHandlerTwo) }));
+            Assert.IsTrue(_registered
+                .Select(r => r.From)
+                .All(t => t == typeof(IHandlerFor<DomainEvent>)));
+
+            Assert.AreEqual(2, _realContainer.ResolveAll(typeof(IHandlerFor<DomainEvent>)).Count());
         }
 
         private class RegisterEvent
