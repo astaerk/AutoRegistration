@@ -240,6 +240,22 @@ namespace Tests.AutoRegistration
             Assert.AreEqual(2, _realContainer.ResolveAll(typeof(IHandlerFor<DomainEvent>)).Count());
         }
 
+        [TestMethod]
+        public void WithPartName()
+        {
+            Assert.AreEqual(
+                "Customer",
+                new RegistrationOptions {Type = typeof (CustomerRepository)}
+                    .WithPartName(WellKnownAppParts.Repository)
+                    .Name);
+
+            Assert.AreEqual(
+                "Test",
+                new RegistrationOptions { Type = typeof(TestCache) }
+                    .WithPartName("Cache")
+                    .Name);
+        }
+
         private class RegisterEvent
         {
             public Type From { get; private set; }
@@ -283,9 +299,16 @@ namespace Tests.AutoRegistration
                 .Include(If.DecoratedWith<LoggerAttribute>,
                          Then.Register()
                              .AsInterface<IDisposable>()
-                             .WithTypeName()
+                             .WithPartName(WellKnownAppParts.Logger)
                              .UsingLifetime<MyLifetimeManager>())
                 .Exclude(t => t.Name.Contains("Trace"))
+                .ApplyAutoRegistration();
+
+            container
+                .ConfigureAutoRegistration()
+                .IncludeAllLoadedAssemblies()
+                .Include(If.Implements<IView>, Then.Register().WithPartName(WellKnownAppParts.View))
+                .Include(If.Implements<IController>, Then.Register().WithPartName(WellKnownAppParts.Controller))
                 .ApplyAutoRegistration();
         }
     }

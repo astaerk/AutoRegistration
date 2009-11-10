@@ -70,6 +70,15 @@ namespace Unity.AutoRegistration
         IFluentRegistration WithTypeName();
 
         /// <summary>
+        /// Specifies that type should be registered with its name minus well-known application part name.
+        /// For example: WithPartName("Controller") will register 'HomeController' type with name 'Home',
+        /// or WithPartName(WellKnownAppParts.Repository) will register 'CustomerRepository' type with name 'Customer'
+        /// </summary>
+        /// <param name="name">Application part name.</param>
+        /// <returns>Fluent registration</returns>
+        IFluentRegistration WithPartName(string name);
+
+        /// <summary>
         /// Specifies interface to register type as
         /// </summary>
         /// <typeparam name="TContact">The type of the interface.</typeparam>
