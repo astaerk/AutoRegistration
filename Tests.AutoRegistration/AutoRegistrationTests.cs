@@ -303,13 +303,6 @@ namespace Tests.AutoRegistration
                              .UsingLifetime<MyLifetimeManager>())
                 .Exclude(t => t.Name.Contains("Trace"))
                 .ApplyAutoRegistration();
-
-            container
-                .ConfigureAutoRegistration()
-                .IncludeAllLoadedAssemblies()
-                .Include(If.Implements<IView>, Then.Register().WithPartName(WellKnownAppParts.View))
-                .Include(If.Implements<IController>, Then.Register().WithPartName(WellKnownAppParts.Controller))
-                .ApplyAutoRegistration();
         }
     }
 }
