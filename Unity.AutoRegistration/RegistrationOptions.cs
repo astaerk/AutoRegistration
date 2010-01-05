@@ -210,7 +210,7 @@ namespace Unity.AutoRegistration
         /// </summary>
         /// <typeparam name="TContact">The type of the interface.</typeparam>
         /// <returns>Fluent registration</returns>
-        public IFluentRegistration AsInterface<TContact>() where TContact : class
+        public IFluentRegistration As<TContact>() where TContact : class
         {
             _interfacesToRegisterAsResolver = t => new List<Type> { typeof(TContact) };
             return this;
@@ -219,28 +219,28 @@ namespace Unity.AutoRegistration
         /// <summary>
         /// Specifies interface resolver function that by given type returns interface register type as
         /// </summary>
-        /// <param name="interfaceResolver">Interface resolver.</param>
+        /// <param name="typeResolver">Interface resolver.</param>
         /// <returns>Fluent registration</returns>
-        public IFluentRegistration AsInterface(Func<Type, Type> interfaceResolver)
+        public IFluentRegistration As(Func<Type, Type> typeResolver)
         {
-            if (interfaceResolver == null)
-                throw new ArgumentNullException("interfaceResolver");
+            if (typeResolver == null)
+                throw new ArgumentNullException("typeResolver");
 
-            _interfacesToRegisterAsResolver = t => new List<Type> {interfaceResolver(t)};
+            _interfacesToRegisterAsResolver = t => new List<Type> {typeResolver(t)};
             return this;
         }
 
         /// <summary>
         /// Specifies interface resolver function that by given type returns interfaces register type as
         /// </summary>
-        /// <param name="interfacesResolver">Interface resolver.</param>
+        /// <param name="typesResolver">Interface resolver.</param>
         /// <returns>Fluent registration</returns>
-        public IFluentRegistration AsInterface(Func<Type, Type[]> interfacesResolver)
+        public IFluentRegistration As(Func<Type, Type[]> typesResolver)
         {
-            if (interfacesResolver == null)
-                throw new ArgumentNullException("interfacesResolver");
+            if (typesResolver == null)
+                throw new ArgumentNullException("typesResolver");
 
-            _interfacesToRegisterAsResolver = t => new List<Type> ( interfacesResolver(t) );
+            _interfacesToRegisterAsResolver = t => new List<Type> ( typesResolver(t) );
             return this;
         }
 

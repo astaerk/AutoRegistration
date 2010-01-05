@@ -291,6 +291,7 @@ namespace Tests.AutoRegistration
                 .IncludeAllLoadedAssemblies()
                 .ExcludeSystemAssemblies()
                 .ExcludeAssemblies(a => a.GetName().FullName.Contains("Test"))
+                .Include(If.ImplementsSingleInterface, Then.Register().AsSingleInterfaceOfType().UsingSingetonMode() )
                 .Include(If.Implements<ILogger>, Then.Register().UsingPerCallMode())
                 .Include(If.ImplementsITypeName, Then.Register().WithTypeName())
                 .Include(If.Implements<ICustomerRepository>, Then.Register().WithName("Sample"))
@@ -298,7 +299,7 @@ namespace Tests.AutoRegistration
                          Then.Register().AsSingleInterfaceOfType().UsingPerCallMode())
                 .Include(If.DecoratedWith<LoggerAttribute>,
                          Then.Register()
-                             .AsInterface<IDisposable>()
+                             .As<IDisposable>()
                              .WithPartName(WellKnownAppParts.Logger)
                              .UsingLifetime<MyLifetimeManager>())
                 .Exclude(t => t.Name.Contains("Trace"))

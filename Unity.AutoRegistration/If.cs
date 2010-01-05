@@ -117,6 +117,21 @@ namespace Unity.AutoRegistration
         }
 
         /// <summary>
+        /// Determines whether type is assignable from specified type.
+        /// </summary>
+        /// <typeparam name="T">Generic method parameter type</typeparam>
+        /// <param name="type">Method argument type.</param>
+        /// <returns>
+        /// 	<c>true</c> if is assignable from the specified type; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool IsAssignableFrom<T>(this Type type)
+        {
+            if (type == null)
+                throw new ArgumentNullException("type");
+            return type.IsAssignableFrom(typeof (T));
+        }
+
+        /// <summary>
         /// Returns true for any assembly that is not null
         /// </summary>
         /// <param name="assembly">Target assembly.</param>

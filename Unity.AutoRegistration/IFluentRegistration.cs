@@ -83,21 +83,21 @@ namespace Unity.AutoRegistration
         /// </summary>
         /// <typeparam name="TContact">The type of the interface.</typeparam>
         /// <returns>Fluent registration</returns>
-        IFluentRegistration AsInterface<TContact>() where TContact : class;
+        IFluentRegistration As<TContact>() where TContact : class;
 
         /// <summary>
-        /// Specifies interface resolver function that by given type returns interface register type as
+        /// Specifies interface or type resolver function that by given type returns type to register type as
         /// </summary>
-        /// <param name="interfaceResolver">Interface resolver.</param>
+        /// <param name="typeResolver">Interface resolver.</param>
         /// <returns>Fluent registration</returns>
-        IFluentRegistration AsInterface(Func<Type, Type> interfaceResolver);
+        IFluentRegistration As(Func<Type, Type> typeResolver);
 
         /// <summary>
-        /// Specifies interface resolver function that by given type returns interfaces register type as
+        /// Specifies interface or type resolver function that by given type returns types to register type as
         /// </summary>
-        /// <param name="interfacesResolver">Interface resolver.</param>
+        /// <param name="typesResolver">Interface resolver.</param>
         /// <returns>Fluent registration</returns>
-        IFluentRegistration AsInterface(Func<Type, Type[]> interfacesResolver);
+        IFluentRegistration As(Func<Type, Type[]> typesResolver);
 
         /// <summary>
         /// Specifies that type should be registered as its first interface
