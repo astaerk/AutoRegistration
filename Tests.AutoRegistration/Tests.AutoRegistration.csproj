@@ -60,7 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutoRegistrationTests.cs" />
+    <Compile Include="AutoRegistrationFixture.cs" />
     <Compile Include="CustomerRepository.cs" />
     <Compile Include="DomainEvent.cs" />
     <Compile Include="DomainEventHandlers.cs" />

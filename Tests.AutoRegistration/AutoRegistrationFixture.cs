@@ -11,7 +11,7 @@ using Moq;
 namespace Tests.AutoRegistration
 {
     [TestClass]
-    public class AutoRegistrationTests
+    public class AutoRegistrationFixture
     {
         private Mock<IUnityContainer> _containerMock;
         private List<RegisterEvent> _registered;
@@ -48,7 +48,7 @@ namespace Tests.AutoRegistration
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void WhenContainerIsNullThrowsException()
+        public void WhenContainerIsNull_ThrowsException()
         {
             _container = null;
             _container
@@ -56,7 +56,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
-        public void WhenApplingAutoRegistrationWithoutAnyRulesNothingIsRegistred()
+        public void WhenApplingAutoRegistrationWithoutAnyRules_NothingIsRegistred()
         {
             _container
                 .ConfigureAutoRegistration()
@@ -65,7 +65,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
-        public void WhenApplingAutoRegistrationWithOnlyAssemblyRulesNothingIsRegistred()
+        public void WhenApplingAutoRegistrationWithOnlyAssemblyRules_NothingIsRegistred()
         {
             _container
                 .ConfigureAutoRegistration()
@@ -75,7 +75,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
-        public void WhenApplingAutoRegistrationWithoutAssemblyRulesNothingIsRegistred()
+        public void WhenApplingAutoRegistrationWithoutAssemblyRules_NothingIsRegistred()
         {
             _container
                 .ConfigureAutoRegistration()
@@ -86,7 +86,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
-        public void WhenApplyMethodIsNotCalledAutoRegistrationDoesNotHappen()
+        public void WhenApplyMethodIsNotCalled_AutoRegistrationDoesNotHappen()
         {
             _container
                 .ConfigureAutoRegistration()
@@ -97,7 +97,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
-        public void WhenAssemblyIsExcludedAutoRegistrationDoesNotHappenForItsTypes()
+        public void WhenAssemblyIsExcluded_AutoRegistrationDoesNotHappenForItsTypes()
         {
             _container
                 .ConfigureAutoRegistration()
@@ -110,7 +110,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
-        public void WhenExternalAssemblyIsLoadedButNotIncludedAutoRegistrationDoesNotHappenForItsTypes()
+        public void WhenExternalAssemblyIsLoadedButNotIncluded_AutoRegistrationDoesNotHappenForItsTypes()
         {
             _container
                 .ConfigureAutoRegistration()
@@ -122,7 +122,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
-        public void WhenExternalAssemblyIsLoadedAndIncludedAutoRegistrationHappensForItsTypes()
+        public void WhenExternalAssemblyIsLoadedAndIncluded_AutoRegistrationHappensForItsTypes()
         {
             _container
                 .ConfigureAutoRegistration()
@@ -135,7 +135,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
-        public void WhenTypeIsExcludedAutoRegistrationDoesNotHappenForIt()
+        public void WhenTypeIsExcluded_AutoRegistrationDoesNotHappenForIt()
         {
             _container
                 .ConfigureAutoRegistration()
@@ -148,7 +148,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
-        public void WhenRegisterWithDefaultOptionsTypeMustBeRegisteredAsAllInterfacesItImplementsUsingPerCallLifetimeWithEmptyName()
+        public void WhenRegisterWithDefaultOptions_TypeMustBeRegisteredAsAllInterfacesItImplementsUsingPerCallLifetimeWithEmptyName()
         {
             _container
                 .ConfigureAutoRegistration()
@@ -172,7 +172,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
-        public void WhenRegistrationObjectIsPassedRequestedTypeRegisteredAsExpected()
+        public void WhenRegistrationObjectIsPassed_RequestedTypeRegisteredAsExpected()
         {
             const string registrationName = "TestName";
             
@@ -195,7 +195,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
-        public void WhenHaveMoreThanOneRegistrationRulesTypesRegisteredAsExpected()
+        public void WhenHaveMoreThanOneRegistrationRules_TypesRegisteredAsExpected()
         {
             _container
                 .ConfigureAutoRegistration()
@@ -213,14 +213,14 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
-        public void ImplementsITypeName()
+        public void WhenImplementsITypeNameMehtodCalled_ItWorksAsExpected()
         {
             Assert.IsTrue(typeof(CustomerRepository).ImplementsITypeName());
             Assert.IsTrue(typeof(Introduction).ImplementsITypeName());
         }
 
         [TestMethod]
-        public void WhenImplementsOpenGenericTypesRegisteredAsExpected()
+        public void WhenImplementsOpenGenericTypes_RegisteredAsExpected()
         {
             _container
                 .ConfigureAutoRegistration()
@@ -241,7 +241,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
-        public void WithPartName()
+        public void WhenWithPartNameMehtodCalled_ItWorksAsExpected()
         {
             Assert.AreEqual(
                 "Customer",
@@ -287,7 +287,7 @@ namespace Tests.AutoRegistration
 
             container
                 .ConfigureAutoRegistration()
-                .LoadAssemblyFrom("Plugin.dll")
+                .LoadAssemblyFrom("MyFancyPlugin.dll")
                 .IncludeAllLoadedAssemblies()
                 .ExcludeSystemAssemblies()
                 .ExcludeAssemblies(a => a.GetName().FullName.Contains("Test"))
