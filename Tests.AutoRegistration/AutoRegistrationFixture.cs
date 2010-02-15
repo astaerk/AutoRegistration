@@ -15,7 +15,6 @@ namespace Tests.AutoRegistration
     {
         private Mock<IUnityContainer> _containerMock;
         private List<RegisterEvent> _registered;
-        private readonly Predicate<Assembly> _testAssemblies = a => a.GetName().FullName.StartsWith("Tests.");
         private IUnityContainer _container;
         private delegate void RegistrationCallback(Type from, Type to, string name, LifetimeManager lifetime, InjectionMember[] ims);
         private IUnityContainer _realContainer;
@@ -69,19 +68,7 @@ namespace Tests.AutoRegistration
         {
             _container
                 .ConfigureAutoRegistration()
-                .IncludeAssemblies(_testAssemblies)
                 .ApplyAutoRegistration();
-            Assert.IsFalse(_registered.Any());
-        }
-
-        [TestMethod]
-        public void WhenApplingAutoRegistrationWithoutAssemblyRules_NothingIsRegistred()
-        {
-            _container
-                .ConfigureAutoRegistration()
-                .Include(If.Is<TestCache>, Then.Register())
-                .ApplyAutoRegistration();
-
             Assert.IsFalse(_registered.Any());
         }
 
@@ -90,7 +77,6 @@ namespace Tests.AutoRegistration
         {
             _container
                 .ConfigureAutoRegistration()
-                .IncludeAssemblies(_testAssemblies)
                 .Include(If.Is<TestCache>, Then.Register());
 
             Assert.IsFalse(_registered.Any());
@@ -101,7 +87,6 @@ namespace Tests.AutoRegistration
         {
             _container
                 .ConfigureAutoRegistration()
-                .IncludeAssemblies(_testAssemblies)
                 .Include(If.Is<TestCache>, Then.Register())
                 .ExcludeAssemblies(If.ContainsType<TestCache>)
                 .ApplyAutoRegistration();
@@ -110,24 +95,12 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
-        public void WhenExternalAssemblyIsLoadedButNotIncluded_AutoRegistrationDoesNotHappenForItsTypes()
+        public void WhenExternalAssemblyIsLoaded_AutoRegistrationHappensForItsTypes()
         {
             _container
                 .ConfigureAutoRegistration()
                 .LoadAssemblyFrom(String.Format("{0}.dll", KnownExternalAssembly))
-                .Include(If.Any, Then.Register())
-                .ApplyAutoRegistration();
-
-            Assert.IsFalse(_registered.Any());
-        }
-
-        [TestMethod]
-        public void WhenExternalAssemblyIsLoadedAndIncluded_AutoRegistrationHappensForItsTypes()
-        {
-            _container
-                .ConfigureAutoRegistration()
-                .LoadAssemblyFrom(String.Format("{0}.dll", KnownExternalAssembly))
-                .IncludeAssemblies(a => a.GetName().FullName.Contains(KnownExternalAssembly))
+                .ExcludeSystemAssemblies()
                 .Include(If.Any, Then.Register())
                 .ApplyAutoRegistration();
 
@@ -140,7 +113,6 @@ namespace Tests.AutoRegistration
             _container
                 .ConfigureAutoRegistration()
                 .Exclude(If.Is<TestCache>)
-                .IncludeAssemblies(_testAssemblies)
                 .Include(If.Is<TestCache>, Then.Register())
                 .ApplyAutoRegistration();
 
@@ -152,7 +124,6 @@ namespace Tests.AutoRegistration
         {
             _container
                 .ConfigureAutoRegistration()
-                .IncludeAssemblies(_testAssemblies)
                 .Include(If.Is<TestCache>, Then.Register())
                 .ApplyAutoRegistration();
 
@@ -183,7 +154,6 @@ namespace Tests.AutoRegistration
 
             _container
                 .ConfigureAutoRegistration()
-                .IncludeAssemblies(_testAssemblies)
                 .Include(If.Is<TestCache>, registration)
                 .ApplyAutoRegistration();
 
@@ -199,7 +169,6 @@ namespace Tests.AutoRegistration
         {
             _container
                 .ConfigureAutoRegistration()
-                .IncludeAssemblies(_testAssemblies)
                 .Include(If.Implements<ICustomerRepository>,
                          Then.Register()
                              .AsSingleInterfaceOfType()
@@ -224,7 +193,6 @@ namespace Tests.AutoRegistration
         {
             _container
                 .ConfigureAutoRegistration()
-                .IncludeAssemblies(_testAssemblies)
                 .Include(type => type.ImplementsOpenGeneric(typeof(IHandlerFor<>)), 
                     Then.Register().AsFirstInterfaceOfType().WithTypeName())
                 .ApplyAutoRegistration();
@@ -288,7 +256,6 @@ namespace Tests.AutoRegistration
             container
                 .ConfigureAutoRegistration()
                 .LoadAssemblyFrom("MyFancyPlugin.dll")
-                .IncludeAllLoadedAssemblies()
                 .ExcludeSystemAssemblies()
                 .ExcludeAssemblies(a => a.GetName().FullName.Contains("Test"))
                 .Include(If.ImplementsSingleInterface, Then.Register().AsSingleInterfaceOfType().UsingSingetonMode() )

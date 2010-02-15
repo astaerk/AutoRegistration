@@ -39,21 +39,6 @@ namespace Unity.AutoRegistration
         IAutoRegistration Exclude(Predicate<Type> filter);
 
         /// <summary>
-        /// Adds rule to include certain assemblies that satisfy specified assembly filter 
-        /// and consider their types when checking type rules
-        /// </summary>
-        /// <param name="filter">Assembly filter.</param>
-        /// <returns>Auto registration</returns>
-        IAutoRegistration IncludeAssemblies(Predicate<Assembly> filter);
-
-        /// <summary>
-        /// Adds rule to include all assemblies that are loaded in current application domain 
-        /// and consider their types when checking type rules
-        /// </summary>
-        /// <returns>Auto registration</returns>
-        IAutoRegistration IncludeAllLoadedAssemblies();
-
-        /// <summary>
         /// Adds rule to exclude certain assemblies that satisfy specified assembly filter 
         /// and not consider their types
         /// </summary>
