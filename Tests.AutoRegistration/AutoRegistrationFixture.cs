@@ -258,7 +258,7 @@ namespace Tests.AutoRegistration
                 .LoadAssemblyFrom("MyFancyPlugin.dll")
                 .ExcludeSystemAssemblies()
                 .ExcludeAssemblies(a => a.GetName().FullName.Contains("Test"))
-                .Include(If.ImplementsSingleInterface, Then.Register().AsSingleInterfaceOfType().UsingSingetonMode() )
+                .Include(If.ImplementsSingleInterface, Then.Register().AsSingleInterfaceOfType().UsingSingletonMode() )
                 .Include(If.Implements<ILogger>, Then.Register().UsingPerCallMode())
                 .Include(If.ImplementsITypeName, Then.Register().WithTypeName())
                 .Include(If.Implements<ICustomerRepository>, Then.Register().WithName("Sample"))

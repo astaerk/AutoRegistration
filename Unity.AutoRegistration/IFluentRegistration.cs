@@ -34,7 +34,7 @@ namespace Unity.AutoRegistration
         /// Specifies ContainerControlledLifetimeManager lifetime manager to use when registering type
         /// </summary>
         /// <returns>Fluent registration</returns>
-        IFluentRegistration UsingSingetonMode();
+        IFluentRegistration UsingSingletonMode();
 
 
         /// <summary>
