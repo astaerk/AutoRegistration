@@ -1,30 +1,14 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AutoRegistration", "AutoRegistration", "{4512E1C1-37A2-48F1-93EF-C4984D34F7A2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1566A6DE-43CA-4953-896E-D9B55F989378}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unity", "Unity", "{1C52E3DA-150D-42FE-AD0A-09990A9B5671}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B21A0CAA-1990-4042-8940-FAE726DD7D21}"
 	ProjectSection(SolutionItems) = preProject
-		Unity\Microsoft.Practices.ObjectBuilder2.dll = Unity\Microsoft.Practices.ObjectBuilder2.dll
-		Unity\Microsoft.Practices.ObjectBuilder2.pdb = Unity\Microsoft.Practices.ObjectBuilder2.pdb
-		Unity\Microsoft.Practices.ObjectBuilder2.xml = Unity\Microsoft.Practices.ObjectBuilder2.xml
-		Unity\Microsoft.Practices.Unity.Configuration.dll = Unity\Microsoft.Practices.Unity.Configuration.dll
-		Unity\Microsoft.Practices.Unity.Configuration.pdb = Unity\Microsoft.Practices.Unity.Configuration.pdb
-		Unity\Microsoft.Practices.Unity.Configuration.xml = Unity\Microsoft.Practices.Unity.Configuration.xml
-		Unity\Microsoft.Practices.Unity.dll = Unity\Microsoft.Practices.Unity.dll
-		Unity\Microsoft.Practices.Unity.Interception.Configuration.dll = Unity\Microsoft.Practices.Unity.Interception.Configuration.dll
-		Unity\Microsoft.Practices.Unity.Interception.Configuration.pdb = Unity\Microsoft.Practices.Unity.Interception.Configuration.pdb
-		Unity\Microsoft.Practices.Unity.Interception.Configuration.xml = Unity\Microsoft.Practices.Unity.Interception.Configuration.xml
-		Unity\Microsoft.Practices.Unity.Interception.dll = Unity\Microsoft.Practices.Unity.Interception.dll
-		Unity\Microsoft.Practices.Unity.Interception.pdb = Unity\Microsoft.Practices.Unity.Interception.pdb
-		Unity\Microsoft.Practices.Unity.Interception.xml = Unity\Microsoft.Practices.Unity.Interception.xml
-		Unity\Microsoft.Practices.Unity.pdb = Unity\Microsoft.Practices.Unity.pdb
-		Unity\Microsoft.Practices.Unity.StaticFactory.dll = Unity\Microsoft.Practices.Unity.StaticFactory.dll
-		Unity\Microsoft.Practices.Unity.StaticFactory.pdb = Unity\Microsoft.Practices.Unity.StaticFactory.pdb
-		Unity\Microsoft.Practices.Unity.StaticFactory.xml = Unity\Microsoft.Practices.Unity.StaticFactory.xml
-		Unity\Microsoft.Practices.Unity.xml = Unity\Microsoft.Practices.Unity.xml
+		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
+		UnityAutoRegistration.vsmdi = UnityAutoRegistration.vsmdi
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.ExternalAssembly", "Tests.ExternalAssembly\Tests.ExternalAssembly.csproj", "{8A5CF548-A25D-4B8D-9D96-829E1AC42D23}"
@@ -34,19 +18,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.AutoRegistration", "Unity.AutoRegistration\Unity.AutoRegistration.csproj", "{89704B3A-0A7A-4BDE-99EC-241A136F0868}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.AutoRegistration", "Tests.AutoRegistration\Tests.AutoRegistration.csproj", "{E42A2373-AC3D-484E-B2AB-E658A7ED4EE2}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Moq", "Moq", "{13B0EAEE-D095-42CD-A6F5-F886895922E7}"
-	ProjectSection(SolutionItems) = preProject
-		Moq\Moq.dll = Moq\Moq.dll
-		Moq\Moq.pdb = Moq\Moq.pdb
-		Moq\Moq.xml = Moq\Moq.xml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B21A0CAA-1990-4042-8940-FAE726DD7D21}"
-	ProjectSection(SolutionItems) = preProject
-		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
-		UnityAutoRegistration.vsmdi = UnityAutoRegistration.vsmdi
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -79,9 +50,9 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{89704B3A-0A7A-4BDE-99EC-241A136F0868} = {4512E1C1-37A2-48F1-93EF-C4984D34F7A2}
+		{B21A0CAA-1990-4042-8940-FAE726DD7D21} = {1566A6DE-43CA-4953-896E-D9B55F989378}
 		{8A5CF548-A25D-4B8D-9D96-829E1AC42D23} = {1566A6DE-43CA-4953-896E-D9B55F989378}
 		{37D66491-A4A0-4884-97B6-09B6C4875834} = {1566A6DE-43CA-4953-896E-D9B55F989378}
 		{E42A2373-AC3D-484E-B2AB-E658A7ED4EE2} = {1566A6DE-43CA-4953-896E-D9B55F989378}
-		{B21A0CAA-1990-4042-8940-FAE726DD7D21} = {1566A6DE-43CA-4953-896E-D9B55F989378}
 	EndGlobalSection
 EndGlobal
