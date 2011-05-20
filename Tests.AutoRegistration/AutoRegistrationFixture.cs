@@ -19,8 +19,6 @@ namespace Tests.AutoRegistration
         private delegate void RegistrationCallback(Type from, Type to, string name, LifetimeManager lifetime, InjectionMember[] ims);
         private IUnityContainer _realContainer;
 
-        private const string KnownExternalAssembly = "Microsoft.Practices.Unity.Interception";
-
         [TestInitialize]
         public void SetUp()
         {
@@ -95,17 +93,17 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
-        public void WhenExternalAssemblyIsLoaded_AutoRegistrationHappensForItsTypes()
+        public void WhenSystemAssembliesAreExcluded_AutoRegistrationDoesNotHappenForTheirTypes()
         {
             _container
                 .ConfigureAutoRegistration()
-                .LoadAssemblyFrom(String.Format("{0}.dll", KnownExternalAssembly))
+                .Include(If.Is<String>, Then.Register())
                 .ExcludeSystemAssemblies()
-                .Include(If.Any, Then.Register())
                 .ApplyAutoRegistration();
 
-            Assert.IsTrue(_registered.Any());
+            Assert.IsFalse(_registered.Any());
         }
+
 
         [TestMethod]
         public void WhenTypeIsExcluded_AutoRegistrationDoesNotHappenForIt()
