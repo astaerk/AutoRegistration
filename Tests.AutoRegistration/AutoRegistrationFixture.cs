@@ -98,6 +98,7 @@ namespace Tests.AutoRegistration
             _container
                 .ConfigureAutoRegistration()
                 .Include(If.Is<String>, Then.Register())
+                .Include(If.Is<Uri>, Then.Register())
                 .ExcludeSystemAssemblies()
                 .ApplyAutoRegistration();
 

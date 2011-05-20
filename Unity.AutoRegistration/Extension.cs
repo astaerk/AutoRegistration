@@ -70,7 +70,8 @@ namespace Unity.AutoRegistration
         public static IAutoRegistration ExcludeSystemAssemblies(this IAutoRegistration autoRegistration)
         {
             autoRegistration.ExcludeAssemblies(a => a.GetName().FullName.StartsWith("System.") 
-                || a.GetName().FullName.StartsWith("mscorlib"));
+                || a.GetName().FullName.StartsWith("mscorlib")
+                || a.GetName().Name.Equals("System"));
             return autoRegistration;
         }
     }
