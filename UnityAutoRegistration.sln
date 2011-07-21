@@ -20,6 +20,28 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.AutoRegistration", "Tests.AutoRegistration\Tests.AutoRegistration.csproj", "{E42A2373-AC3D-484E-B2AB-E658A7ED4EE2}"
 EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs06
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Tests.ExternalAssembly\\Tests.ExternalAssembly.csproj
+		SccProjectTopLevelParentUniqueName1 = UnityAutoRegistration.sln
+		SccProjectName1 = Tests.ExternalAssembly
+		SccLocalPath1 = Tests.ExternalAssembly
+		SccProjectUniqueName2 = Tests.Contract\\Tests.Contract.csproj
+		SccProjectTopLevelParentUniqueName2 = UnityAutoRegistration.sln
+		SccProjectName2 = Tests.Contract
+		SccLocalPath2 = Tests.Contract
+		SccProjectUniqueName3 = Unity.AutoRegistration\\Unity.AutoRegistration.csproj
+		SccProjectTopLevelParentUniqueName3 = UnityAutoRegistration.sln
+		SccProjectName3 = Unity.AutoRegistration
+		SccLocalPath3 = Unity.AutoRegistration
+		SccProjectUniqueName4 = Tests.AutoRegistration\\Tests.AutoRegistration.csproj
+		SccProjectTopLevelParentUniqueName4 = UnityAutoRegistration.sln
+		SccProjectName4 = Tests.AutoRegistration
+		SccLocalPath4 = Tests.AutoRegistration
+	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = UnityAutoRegistration.vsmdi
 	EndGlobalSection
@@ -54,5 +76,8 @@ Global
 		{8A5CF548-A25D-4B8D-9D96-829E1AC42D23} = {1566A6DE-43CA-4953-896E-D9B55F989378}
 		{37D66491-A4A0-4884-97B6-09B6C4875834} = {1566A6DE-43CA-4953-896E-D9B55F989378}
 		{E42A2373-AC3D-484E-B2AB-E658A7ED4EE2} = {1566A6DE-43CA-4953-896E-D9B55F989378}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35
 	EndGlobalSection
 EndGlobal
