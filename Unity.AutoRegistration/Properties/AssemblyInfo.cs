@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("UnityAutoRegistration")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("Artem Govorov")]
 [assembly: AssemblyProduct("Unity Auto Registration")]
 [assembly: AssemblyCopyright("Artem Govorov")]
 [assembly: AssemblyTrademark("")]
