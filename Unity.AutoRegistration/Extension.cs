@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Microsoft.Practices.Unity;
 
 namespace Unity.AutoRegistration
@@ -21,33 +19,6 @@ namespace Unity.AutoRegistration
             where TAttr : Attribute
         {
             return type.GetCustomAttributes(false).Single(a => typeof (TAttr) == a.GetType()) as TAttr;
-        }
-
-        /// <summary>
-        /// Loads assembly from given assembly file name.
-        /// </summary>
-        /// <param name="autoRegistration">Auto registration.</param>
-        /// <param name="assemblyPath">Assembly path.</param>
-        /// <returns>Auto registration</returns>
-        public static IAutoRegistration LoadAssemblyFrom(this IAutoRegistration autoRegistration, string assemblyPath)
-        {
-            Assembly.LoadFrom(assemblyPath);
-            return autoRegistration;
-        }
-
-        /// <summary>
-        /// Loads assemblies from given assembly file name.
-        /// </summary>
-        /// <param name="autoRegistration">Auto registration.</param>
-        /// <param name="assemblyPaths">Assembly paths.</param>
-        /// <returns>Auto registration</returns>
-        public static IAutoRegistration LoadAssembliesFrom(this IAutoRegistration autoRegistration, IEnumerable<string> assemblyPaths)
-        {
-            foreach (var assemblyPath in assemblyPaths)
-            {
-                autoRegistration.LoadAssemblyFrom(assemblyPath);
-            }
-            return autoRegistration;
         }
 
         /// <summary>
