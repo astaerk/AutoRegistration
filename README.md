@@ -10,7 +10,7 @@ http://nuget.org/List/Packages/UnityAutoRegistration
 Rules for determining whether to include/exclude type/assembly are predicates (Predicate<T>) so you can use lambda syntax to specify them or direct method name. There are a few methods in If helper class (like Implements, DecoratedWith) to cover some common scenarios of type registering.
 
 For example, auto registration configuration using Unity Auto Registration may look like:
-```
+```C#
 var container = new UnityContainer();
 
 container
