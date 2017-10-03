@@ -10,7 +10,6 @@ namespace Unity.AutoRegistration
         {
             var typeInfo = type.GetTypeInfo();
             if (typeInfo.IsGenericTypeDefinition)
-                //typeInfo.ImplementedInterfaces.First().DeclaringType
                 return typeInfo.ImplementedInterfaces.Select(t => t.GetTypeInfo().Assembly.GetType(t.Namespace + "." + t.Name)).ToArray();
             else
                 return typeInfo.ImplementedInterfaces.ToArray();
