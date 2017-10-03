@@ -225,9 +225,6 @@ namespace Tests.AutoRegistration
 
             var result = _realContainer.Resolve<IFilter<string>>();
             Assert.IsNotNull(result);
-
-            var res = _realContainer.ResolveAll(typeof(IFilter<DomainEvent>));
-            Assert.AreEqual(1, res.Count());
         }
 
         [TestMethod]
