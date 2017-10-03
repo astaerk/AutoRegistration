@@ -208,6 +208,29 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
+        public void WhenRegistrationOfOpenGenericType_RegisteredAsExpected()
+        {
+            _container
+                .ConfigureAutoRegistration()
+                .Include(type => If.ImplementsITypeName(type) && type.Equals(typeof(Filter<>)), Then.Register())
+                .ApplyAutoRegistration();
+
+            Assert.AreEqual(1, _registered.Count);
+            Assert.IsTrue(_registered
+                .Select(r => r.To)
+                .SequenceEqual(new[] { typeof(Filter<>) }));
+            Assert.IsTrue(_registered
+                .Select(r => r.From)
+                .All(t => t == typeof(IFilter<>)));
+
+            var result = _realContainer.Resolve<IFilter<string>>();
+            Assert.IsNotNull(result);
+
+            var res = _realContainer.ResolveAll(typeof(IFilter<DomainEvent>));
+            Assert.AreEqual(1, res.Count());
+        }
+
+        [TestMethod]
         public void WhenWithPartNameMehtodCalled_ItWorksAsExpected()
         {
             Assert.AreEqual(

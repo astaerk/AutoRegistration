@@ -90,7 +90,9 @@
     <Compile Include="ICache.cs" />
     <Compile Include="ICustomerRepository.cs" />
     <Compile Include="IOrderRepository.cs" />
+    <Compile Include="IFilter.cs" />
     <Compile Include="MyLifetimeManager.cs" />
+    <Compile Include="Filter.cs" />
     <Compile Include="TestCache.cs" />
     <Compile Include="TestCustomerRepository.cs" />
     <Compile Include="TestLogger.cs" />
