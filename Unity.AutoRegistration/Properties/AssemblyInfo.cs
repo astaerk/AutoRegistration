@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Resources;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
@@ -7,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("UnityAutoRegistration")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Artem Govorov")]
+[assembly: AssemblyCompany("agovorov,astaerk")]
 [assembly: AssemblyProduct("Unity Auto Registration")]
 [assembly: AssemblyCopyright("Artem Govorov")]
 [assembly: AssemblyTrademark("")]
@@ -28,6 +29,9 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.0.1")]
-[assembly: AssemblyFileVersion("1.0.0.1")]
+[assembly: AssemblyVersion("1.5.0.0")]
+[assembly: AssemblyFileVersion("1.5.0.0")]
+[assembly: AssemblyInformationalVersion("1.5.0")]
 [assembly: AssemblyKeyFileAttribute(@"key.snk")]
+[assembly: NeutralResourcesLanguage("en-AU")]
+
