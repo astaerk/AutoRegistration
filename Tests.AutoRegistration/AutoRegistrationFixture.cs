@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Microsoft.Practices.Unity;
+using Unity;
+using Unity.Lifetime;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Tests.Contract;
 using Unity.AutoRegistration;
 using Moq;
+using Unity.Registration;
 
 namespace Tests.AutoRegistration
 {

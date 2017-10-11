@@ -1,6 +1,5 @@
 using System;
 using System.Reflection;
-using Microsoft.Practices.Unity;
 
 namespace Unity.AutoRegistration
 {

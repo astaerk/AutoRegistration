@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.Practices.Unity;
+using Unity.Lifetime;
 
 namespace Unity.AutoRegistration
 {

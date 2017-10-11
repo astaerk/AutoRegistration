@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using Microsoft.Practices.Unity;
 
 namespace Unity.AutoRegistration
 {
