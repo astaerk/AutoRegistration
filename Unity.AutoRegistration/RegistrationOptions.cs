@@ -12,7 +12,7 @@ namespace Unity.AutoRegistration
     {
         private Type _type;
 
-        private Func<Type, IEnumerable<Type>> _interfacesToRegisterAsResolver = t => new List<Type>(t.GetCorrectInterfaces());
+        private Func<Type, IEnumerable<Type>> _interfacesToRegisterAsResolver = t => new List<Type>(t.GetImplementedInterfacesFixed());
         private Func<Type, string> _nameToRegisterWithResolver = t => String.Empty;
         private Func<Type, LifetimeManager> _lifetimeManagerToRegisterWithResolver = t => new TransientLifetimeManager();
 
