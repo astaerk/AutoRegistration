@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-using Tests.Contract;
+using Tests.Contracts;
 
 namespace Tests.ExternalAssembly
 {
@@ -10,7 +10,7 @@ namespace Tests.ExternalAssembly
 
         public void Log(string message)
         {
-            Trace.WriteLine(message);
+            Debug.WriteLine(message);
         }
 
         #endregion

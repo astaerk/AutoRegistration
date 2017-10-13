@@ -5,7 +5,7 @@ using System.Reflection;
 using Unity;
 using Unity.Lifetime;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Tests.Contract;
+using Tests.Contracts;
 using Unity.AutoRegistration;
 using Moq;
 using Unity.Registration;

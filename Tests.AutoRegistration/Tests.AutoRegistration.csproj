@@ -96,9 +96,9 @@
     <Compile Include="TestLogger.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tests.Contract\Tests.Contract.csproj">
-      <Project>{37D66491-A4A0-4884-97B6-09B6C4875834}</Project>
-      <Name>Tests.Contract</Name>
+    <ProjectReference Include="..\Tests.Contracts\Tests.Contracts.csproj">
+      <Project>{1e0dab47-3d5d-4b8a-aae3-d354aac3170f}</Project>
+      <Name>Tests.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\Unity.AutoRegistration\Unity.AutoRegistration.csproj">
       <Project>{4bd7688d-bdb6-47ee-9f0b-d61b57c10663}</Project>

@@ -1,5 +1,5 @@
 using System;
-using Tests.Contract;
+using Tests.Contracts;
 
 namespace Tests.AutoRegistration
 {
