@@ -250,7 +250,7 @@ namespace Unity.AutoRegistration
         /// <returns>Fluent registration</returns>
         public IFluentRegistration AsFirstInterfaceOfType()
         {
-            _interfacesToRegisterAsResolver = t => new List<Type> { t.GetInterfaces().First() };
+            _interfacesToRegisterAsResolver = t => new List<Type> { t.GetImplementedInterfacesFixed().First() };
             return this;
         }
 
@@ -260,7 +260,7 @@ namespace Unity.AutoRegistration
         /// <returns>Fluent registration</returns>
         public IFluentRegistration AsSingleInterfaceOfType()
         {
-            _interfacesToRegisterAsResolver = t => new List<Type> { t.GetInterfaces().Single() };
+            _interfacesToRegisterAsResolver = t => new List<Type> { t.GetImplementedInterfacesFixed().Single() };
             return this;
         }
 
@@ -270,7 +270,7 @@ namespace Unity.AutoRegistration
         /// <returns>Fluent registration</returns>
         public IFluentRegistration AsAllInterfacesOfType()
         {
-            _interfacesToRegisterAsResolver = t => new List<Type>(t.GetInterfaces());
+            _interfacesToRegisterAsResolver = t => new List<Type>(t.GetImplementedInterfacesFixed());
             return this;
         }
     }

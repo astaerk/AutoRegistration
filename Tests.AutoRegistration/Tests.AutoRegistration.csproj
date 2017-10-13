@@ -96,13 +96,13 @@
     <Compile Include="TestLogger.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Unity.AutoRegistration\Unity.AutoRegistration.csproj">
-      <Project>{89704B3A-0A7A-4BDE-99EC-241A136F0868}</Project>
-      <Name>Unity.AutoRegistration</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Tests.Contract\Tests.Contract.csproj">
       <Project>{37D66491-A4A0-4884-97B6-09B6C4875834}</Project>
       <Name>Tests.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Unity.AutoRegistration\Unity.AutoRegistration.csproj">
+      <Project>{4bd7688d-bdb6-47ee-9f0b-d61b57c10663}</Project>
+      <Name>Unity.AutoRegistration</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

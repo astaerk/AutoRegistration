@@ -21,7 +21,7 @@ namespace Unity.AutoRegistration
             if (type == null)
                 throw new ArgumentNullException("type");
 
-            return type.GetCustomAttributes(false).Any(a => a.GetType() == typeof(TAttr));
+            return type.GetTypeInfo().GetCustomAttributes(false).Any(a => a.GetType() == typeof(TAttr));
         }
 
         /// <summary>
@@ -35,9 +35,9 @@ namespace Unity.AutoRegistration
             if (type == null)
                 throw new ArgumentNullException("type");
 
-            return type.GetInterfaces().Any(i => i == typeof(TContract));
+            return type.GetTypeInfo().ImplementedInterfaces.Any(i => i == typeof(TContract));
         }
-
+        
         /// <summary>
         /// Determines whether type implements interface that can be constructed from specified open-generic interface
         /// </summary>
@@ -50,12 +50,15 @@ namespace Unity.AutoRegistration
                 throw new ArgumentNullException("type");
             if (contract == null)
                 throw new ArgumentNullException("contract");
-            if (!contract.IsInterface)
+
+            var contractTypeInfo = contract.GetTypeInfo();
+
+            if (!contractTypeInfo.IsInterface)
                 throw new ArgumentException("Provided contract has to be an interface", "contract");
-            if (!contract.IsGenericTypeDefinition)
+            if (!contractTypeInfo.IsGenericTypeDefinition)
                 throw new ArgumentException("Provided contract has to be an open generic", "contract");
             
-            return type.GetInterfaces().Any(i => i.IsGenericType && (i.GetGenericTypeDefinition() == contract));
+            return type.GetTypeInfo().ImplementedInterfaces.Any(i => i.GetTypeInfo().IsGenericType && (i.GetGenericTypeDefinition() == contract));
         }
 
         /// <summary>
@@ -69,8 +72,8 @@ namespace Unity.AutoRegistration
         {
             if (type == null)
                 throw new ArgumentNullException("type");
-
-            return type.GetInterfaces().Any(i => i.Name.StartsWith("I") 
+            
+            return type.GetTypeInfo().ImplementedInterfaces.Any(i => i.Name.StartsWith("I") 
                 && i.Name.Remove(0, 1) == type.Name);
         }
 
@@ -84,7 +87,7 @@ namespace Unity.AutoRegistration
             if (type == null)
                 throw new ArgumentNullException("type");
 
-            return type.GetInterfaces().Count() == 1;
+            return type.GetTypeInfo().ImplementedInterfaces.Count() == 1;
         }
 
         /// <summary>
@@ -128,7 +131,7 @@ namespace Unity.AutoRegistration
         {
             if (type == null)
                 throw new ArgumentNullException("type");
-            return type.IsAssignableFrom(typeof (T));
+            return type.GetTypeInfo().IsAssignableFrom(typeof(T).GetTypeInfo());
         }
 
         /// <summary>
@@ -157,7 +160,7 @@ namespace Unity.AutoRegistration
             if (assembly == null)
                 throw new ArgumentNullException("assembly");
 
-            return typeof (T).Assembly == assembly;
+            return typeof (T).GetTypeInfo().Assembly == assembly;
         }
     }
 }
