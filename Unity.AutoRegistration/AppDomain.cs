@@ -9,6 +9,7 @@ namespace Unity.AutoRegistration
 {
     public class AppDomain
     {
+
         public static AppDomain CurrentDomain { get; private set; }
 
         static AppDomain()
@@ -22,20 +23,17 @@ namespace Unity.AutoRegistration
             var dependencies = DependencyContext.Default.RuntimeLibraries;
             foreach (var library in dependencies)
             {
-                if (IsCandidateCompilationLibrary(library))
+                try
                 {
                     var assembly = Assembly.Load(new AssemblyName(library.Name));
                     assemblies.Add(assembly);
                 }
+                catch (System.IO.FileNotFoundException)
+                { }
             }
             return assemblies.ToArray();
         }
-
-        private static bool IsCandidateCompilationLibrary(RuntimeLibrary compilationLibrary)
-        {
-            return compilationLibrary.Name == ("Specify")
-                || compilationLibrary.Dependencies.Any(d => d.Name.StartsWith("Specify"));
-        }
+        
     }
 }
 
