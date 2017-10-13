@@ -48,8 +48,8 @@ Global
 		{E42A2373-AC3D-484E-B2AB-E658A7ED4EE2} = {1566A6DE-43CA-4953-896E-D9B55F989378}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35
 		SolutionGuid = {796D3DA9-4817-499E-99C8-039D41B89969}
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = UnityAutoRegistration.vsmdi
