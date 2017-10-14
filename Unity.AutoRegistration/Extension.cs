@@ -18,7 +18,7 @@ namespace Unity.AutoRegistration
         public static TAttr GetAttribute<TAttr>(this Type type) 
             where TAttr : Attribute
         {
-            return type.GetTypeInfo().GetCustomAttributes(false).Single(a => typeof (TAttr) == a.GetType()) as TAttr;
+            return type.GetTypeInfo().CustomAttributes.Single(a => typeof(TAttr) == a.AttributeType) as TAttr;
         }
 
         /// <summary>

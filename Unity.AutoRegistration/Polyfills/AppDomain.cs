@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Unity.AutoRegistration
+namespace Unity.AutoRegistration.Polyfills
 {
     public class AppDomain
     {

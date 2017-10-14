@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
+#if NETSTANDARD1_6
+using Unity.AutoRegistration.Polyfills;
+#endif
+
 namespace Unity.AutoRegistration
 {
     /// <summary>

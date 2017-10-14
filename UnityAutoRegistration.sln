@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AutoRegistration", "AutoRegistration", "{4512E1C1-37A2-48F1-93EF-C4984D34F7A2}"
 EndProject
@@ -48,8 +48,8 @@ Global
 		{75BFCBEE-D64C-421B-9B89-CD65065A0D16} = {1566A6DE-43CA-4953-896E-D9B55F989378}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35
 		SolutionGuid = {796D3DA9-4817-499E-99C8-039D41B89969}
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = UnityAutoRegistration.vsmdi
