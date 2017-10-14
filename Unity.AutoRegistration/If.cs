@@ -20,8 +20,8 @@ namespace Unity.AutoRegistration
         {
             if (type == null)
                 throw new ArgumentNullException("type");
-
-            return type.GetTypeInfo().GetCustomAttributes(false).Any(a => a.GetType() == typeof(TAttr));
+            
+            return type.GetTypeInfo().CustomAttributes.Any(a => a.AttributeType == typeof(TAttr));
         }
 
         /// <summary>
