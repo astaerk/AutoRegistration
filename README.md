@@ -3,7 +3,7 @@
 ### Install from Nuget
 Add it to your project with nuget: Install-Package UnityAutoRegistration
 
-http://nuget.org/List/Packages/UnityAutoRegistration
+https://www.nuget.org/packages/UnityAutoRegistration
 
 ### Project Description
 
