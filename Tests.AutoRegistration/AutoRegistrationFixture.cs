@@ -12,9 +12,16 @@ using Unity.Registration;
 
 namespace Tests.AutoRegistration
 {
+
     [TestClass]
     public class AutoRegistrationFixture
     {
+#if NET40TESTS
+        private const string TESTCATEGORY = "NET40";
+#else
+        private const string TESTCATEGORY = "NETSTANDARD AND NET45";
+#endif
+
         private Mock<IUnityContainer> _containerMock;
         private List<RegisterEvent> _registered;
         private IUnityContainer _container;
@@ -46,6 +53,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
+        [TestCategory(TESTCATEGORY)]
         [ExpectedException(typeof(ArgumentNullException))]
         public void WhenContainerIsNull_ThrowsException()
         {
@@ -55,6 +63,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
+        [TestCategory(TESTCATEGORY)]
         public void WhenApplingAutoRegistrationWithoutAnyRules_NothingIsRegistred()
         {
             _container
@@ -64,6 +73,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
+        [TestCategory(TESTCATEGORY)]
         public void WhenApplingAutoRegistrationWithOnlyAssemblyRules_NothingIsRegistred()
         {
             _container
@@ -73,6 +83,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
+        [TestCategory(TESTCATEGORY)]
         public void WhenApplyMethodIsNotCalled_AutoRegistrationDoesNotHappen()
         {
             _container
@@ -83,6 +94,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
+        [TestCategory(TESTCATEGORY)]
         public void WhenAssemblyIsExcluded_AutoRegistrationDoesNotHappenForItsTypes()
         {
             _container
@@ -95,6 +107,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
+        [TestCategory(TESTCATEGORY)]
         public void WhenSystemAssembliesAreExcluded_AutoRegistrationDoesNotHappenForTheirTypes()
         {
             _container
@@ -109,6 +122,7 @@ namespace Tests.AutoRegistration
 
 
         [TestMethod]
+        [TestCategory(TESTCATEGORY)]
         public void WhenTypeIsExcluded_AutoRegistrationDoesNotHappenForIt()
         {
             _container
@@ -121,6 +135,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
+        [TestCategory(TESTCATEGORY)]
         public void WhenRegisterWithDefaultOptions_TypeMustBeRegisteredAsAllInterfacesItImplementsUsingPerCallLifetimeWithEmptyName()
         {
             _container
@@ -144,6 +159,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
+        [TestCategory(TESTCATEGORY)]
         public void WhenRegistrationObjectIsPassed_RequestedTypeRegisteredAsExpected()
         {
             const string registrationName = "TestName";
@@ -166,6 +182,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
+        [TestCategory(TESTCATEGORY)]
         public void WhenHaveMoreThanOneRegistrationRules_TypesRegisteredAsExpected()
         {
             _container
@@ -183,6 +200,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
+        [TestCategory(TESTCATEGORY)]
         public void WhenImplementsITypeNameMehtodCalled_ItWorksAsExpected()
         {
             Assert.IsTrue(typeof(CustomerRepository).ImplementsITypeName());
@@ -190,6 +208,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
+        [TestCategory(TESTCATEGORY)]
         public void WhenImplementsOpenGenericTypes_RegisteredAsExpected()
         {
             _container
@@ -210,6 +229,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
+        [TestCategory(TESTCATEGORY)]
         public void WhenRegistrationOfOpenGenericType_RegisteredAsExpected()
         {
             _container
@@ -230,6 +250,7 @@ namespace Tests.AutoRegistration
         }
 
         [TestMethod]
+        [TestCategory(TESTCATEGORY)]
         public void WhenWithPartNameMehtodCalled_ItWorksAsExpected()
         {
             Assert.AreEqual(

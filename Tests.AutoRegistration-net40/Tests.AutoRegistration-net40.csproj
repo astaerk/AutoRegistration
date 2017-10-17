@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<TargetFrameworks>net45</TargetFrameworks>
+	
+	<IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net45|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG;NET45;NET40TESTS</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+    <DefineConstants>TRACE;RELEASE;NET45;NET40TESTS</DefineConstants>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Compile Include="..\Tests.AutoRegistration\**\*.cs" />
+    <EmbeddedResource Include="..\Tests.AutoRegistration\**\*.resx" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Remove="..\Tests.AutoRegistration\obj\**" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
+    <PackageReference Include="Moq" Version="4.7.142" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.2.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.2.0" />
+    <PackageReference Include="Unity" Version="5.0.0-RC3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tests.Contracts\Tests.Contracts.csproj" />
+    <ProjectReference Include="..\Unity.AutoRegistration\Unity.AutoRegistration.csproj" Properties="TargetFramework=net40" />
+  </ItemGroup>
+
+</Project>

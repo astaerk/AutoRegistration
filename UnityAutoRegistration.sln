@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.ExternalAssembly", "T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.AutoRegistration", "Tests.AutoRegistration\Tests.AutoRegistration.csproj", "{75BFCBEE-D64C-421B-9B89-CD65065A0D16}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.AutoRegistration-net40", "Tests.AutoRegistration-net40\Tests.AutoRegistration-net40.csproj", "{F70D3362-14AD-44CF-8CCC-3969B24FFB31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{75BFCBEE-D64C-421B-9B89-CD65065A0D16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75BFCBEE-D64C-421B-9B89-CD65065A0D16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75BFCBEE-D64C-421B-9B89-CD65065A0D16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F70D3362-14AD-44CF-8CCC-3969B24FFB31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F70D3362-14AD-44CF-8CCC-3969B24FFB31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F70D3362-14AD-44CF-8CCC-3969B24FFB31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F70D3362-14AD-44CF-8CCC-3969B24FFB31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,10 +52,11 @@ Global
 		{1E0DAB47-3D5D-4B8A-AAE3-D354AAC3170F} = {1566A6DE-43CA-4953-896E-D9B55F989378}
 		{3E1922B1-E8ED-4A37-B8D7-73D104645A22} = {1566A6DE-43CA-4953-896E-D9B55F989378}
 		{75BFCBEE-D64C-421B-9B89-CD65065A0D16} = {1566A6DE-43CA-4953-896E-D9B55F989378}
+		{F70D3362-14AD-44CF-8CCC-3969B24FFB31} = {1566A6DE-43CA-4953-896E-D9B55F989378}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {796D3DA9-4817-499E-99C8-039D41B89969}
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35
+		SolutionGuid = {796D3DA9-4817-499E-99C8-039D41B89969}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = UnityAutoRegistration.vsmdi
