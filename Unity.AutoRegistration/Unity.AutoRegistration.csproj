@@ -19,7 +19,7 @@ Rules for determining whether to include/exclude types/assemblies are predicates
     <Authors>agovorov,astaerk</Authors>
     <Company>agovorov,astaerk</Company>
     <NeutralLanguage>en-AU</NeutralLanguage>
-	<Version>2.0.0-beta1</Version>
+    <Version>2.0.0-beta1</Version>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
     <InformationalVersion>2.0.0.0</InformationalVersion>
