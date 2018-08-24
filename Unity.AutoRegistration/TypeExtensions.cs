@@ -16,7 +16,7 @@ namespace Unity.AutoRegistration
         }
 
         public static IEnumerable<Type> GetImplementedInterfacesFixed(this TypeInfo typeInfo)
-        {
+        {   
             if (typeInfo.IsGenericTypeDefinition)
                 return typeInfo.ImplementedInterfaces.Select(t => t.GetTypeInfo().Assembly.GetType(t.Namespace + "." + t.Name));
             else
