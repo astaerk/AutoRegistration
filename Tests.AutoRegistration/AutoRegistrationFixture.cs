@@ -21,7 +21,7 @@ namespace Tests.AutoRegistration
 #else
         private const string TESTCATEGORY = "NETSTANDARD AND NET45";
 #endif
-
+        
         private Mock<IUnityContainer> _containerMock;
         private List<RegisterEvent> _registered;
         private IUnityContainer _container;
@@ -32,7 +32,7 @@ namespace Tests.AutoRegistration
         public void SetUp()
         {
             _realContainer = new UnityContainer();
-
+            
             _containerMock = new Mock<IUnityContainer>();
             _registered = new List<RegisterEvent>();
             var setup = _containerMock
