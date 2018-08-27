@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!--<TargetFrameworks>net45;netcoreapp1.0;netcoreapp2.0</TargetFrameworks>-->
-    <TargetFrameworks>net45</TargetFrameworks>
+    <!-- TargetFramework in tests should be a specific platform and not netstandard https://stackoverflow.com/a/44213714 -->
+	  <TargetFrameworks>net45;netcoreapp1.0;netcoreapp2.0</TargetFrameworks>
     
 	  <IsPackable>false</IsPackable>
   </PropertyGroup>
