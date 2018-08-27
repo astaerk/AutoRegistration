@@ -28,6 +28,7 @@ Rules for determining whether to include/exclude types/assemblies are predicates
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/astaerk/AutoRegistration</PackageProjectUrl>
     <PackageTags>.NET Auto-registration Autoregistration dependency-container dependency-injection Enterprise-Library Fluent-Interface Inversion-of-Control IoC DI lambda Unity</PackageTags>
+    <PackageReleaseNotes>Support for Unity 5</PackageReleaseNotes>
     <!--<PackageIconUrl>http://www.url.de/nuget_icon.png</PackageIconUrl>-->
   </PropertyGroup>
 
