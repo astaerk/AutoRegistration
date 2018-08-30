@@ -21,7 +21,11 @@ namespace Unity.AutoRegistration
             if (type == null)
                 throw new ArgumentNullException("type");
 
+#if NETSTANDARD1_6
+            return type.GetTypeInfo().GetCustomAttribute<TAttr>(false) != null;
+#else
             return type.GetTypeInfo().GetCustomAttributes(false).Any(a => a.GetType() == typeof(TAttr));
+#endif
         }
 
         /// <summary>

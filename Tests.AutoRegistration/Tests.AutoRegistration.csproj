@@ -2,9 +2,8 @@
 
   <PropertyGroup>
     <!-- TargetFramework in tests should be a specific platform and not netstandard https://stackoverflow.com/a/44213714 -->
-	  <TargetFrameworks>net45;netcoreapp1.0;netcoreapp2.0</TargetFrameworks>
-    
-	  <IsPackable>false</IsPackable>
+    <TargetFrameworks>net45;netcoreapp1.0;netcoreapp1.1;netcoreapp2.0</TargetFrameworks>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
