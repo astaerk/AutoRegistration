@@ -266,6 +266,46 @@ namespace Tests.AutoRegistration
                     .Name);
         }
 
+        [TestMethod]
+        [TestCategory(TESTCATEGORY)]
+        public void TestPlatformUsesCorrectTargetPlatformAssembly()
+        {
+            System.Reflection.Assembly unityAutoRegistrationAssembly;
+#if NET40TESTS
+            unityAutoRegistrationAssembly = typeof(Unity.AutoRegistration.AutoRegistration).Assembly;
+#else
+            unityAutoRegistrationAssembly = typeof(Unity.AutoRegistration.AutoRegistration).GetTypeInfo().Assembly;
+#endif
+            
+            var targetFrameworkInformationAttribute = unityAutoRegistrationAssembly.GetCustomAttribute<TargetFrameworkInformationAttribute>();
+            var runtimeTarget = unityAutoRegistrationAssembly.GetCustomAttribute<System.Runtime.Versioning.TargetFrameworkAttribute>();
+
+            if (targetFrameworkInformationAttribute == null)
+                throw new Exception(nameof(TargetFrameworkInformationAttribute) + " not found.");
+
+            var targetFramework = targetFrameworkInformationAttribute.TargetFramework;
+
+            if (targetFramework == TargetFramework.Unknown)
+                throw new Exception(nameof(TargetFrameworkInformationAttribute) + " is not implemented for all platforms.");
+
+            TargetFramework expectedTargetFramework;
+#if NET40TESTS
+            expectedTargetFramework = TargetFramework.net40;
+#elif NET45
+            expectedTargetFramework = TargetFramework.net45;
+#elif NETCOREAPP1_0
+            expectedTargetFramework = TargetFramework.netstandard1_6;
+#elif NETCOREAPP1_1
+            expectedTargetFramework = TargetFramework.netstandard1_6;
+#elif NETCOREAPP2_0
+            expectedTargetFramework = TargetFramework.netstandard2_0;
+#else
+            throw new Exception("unknown testing platform");
+#endif
+
+            Assert.AreEqual(expectedTargetFramework, targetFramework);
+        }
+
         private class RegisterEvent
         {
             public Type From { get; private set; }
