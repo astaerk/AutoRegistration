@@ -12,7 +12,7 @@
     <RootNamespace>Unity.AutoRegistration</RootNamespace>
     <Description>Unity Auto Registration extends the Unity IoC container and provides a fluent syntax to configure rules for automatic type registration. Using few lines of code you can scan specified assemblies and register all types that satisfy your rules.
 
-Rules for determining whether to include/exclude types/assemblies are predicates (Predicate&amp;lt;T&amp;gt;) so you can use lambda syntax or direct method name to specify them. There are a few methods in an If helper class (like Implements, DecoratedWith) to cover some common scenarios of type registration.</Description>
+Rules for determining whether to include/exclude types/assemblies are predicates (Predicate&lt;T&gt;) so you can use lambda syntax or direct method name to specify them. There are a few methods in an If helper class (like Implements, DecoratedWith) to cover some common scenarios of type registration.</Description>
     <Copyright>Artem Govorov &amp; Alexander Stärk</Copyright>
     <PackageId>UnityAutoRegistration</PackageId>
     <Product>Unity Auto Registration</Product>
