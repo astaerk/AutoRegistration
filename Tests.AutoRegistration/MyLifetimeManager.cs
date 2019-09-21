@@ -19,5 +19,10 @@ namespace Tests.AutoRegistration
         {
             throw new NotImplementedException();
         }
+
+        protected override LifetimeManager OnCreateLifetimeManager()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
