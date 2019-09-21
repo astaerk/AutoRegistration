@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     
@@ -44,7 +44,7 @@ Rules for determining whether to include/exclude types/assemblies are predicates
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Unity" Version="5.1.2" />
+    <PackageReference Include="Unity" Version="5.3.2" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.6'">
