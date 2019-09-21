@@ -44,7 +44,7 @@ Rules for determining whether to include/exclude types/assemblies are predicates
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Unity" Version="5.5.8" />
+    <PackageReference Include="Unity" Version="5.8.13" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.6'">
