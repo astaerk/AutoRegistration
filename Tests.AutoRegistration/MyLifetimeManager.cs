@@ -3,7 +3,7 @@ using Unity.Lifetime;
 
 namespace Tests.AutoRegistration
 {
-    internal class MyLifetimeManager : LifetimeManager
+    internal class MyLifetimeManager : LifetimeManager, ITypeLifetimeManager
     {
         public override object GetValue(ILifetimeContainer container = null)
         {

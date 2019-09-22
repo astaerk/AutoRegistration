@@ -13,14 +13,14 @@ namespace Unity.AutoRegistration
         private Type _type;
 
         private Func<Type, IEnumerable<Type>> _interfacesToRegisterAsResolver = t => new List<Type>(t.GetImplementedInterfacesFixed());
-        private Func<Type, string> _nameToRegisterWithResolver = t => String.Empty;
-        private Func<Type, LifetimeManager> _lifetimeManagerToRegisterWithResolver = t => new TransientLifetimeManager();
+        private Func<Type, string> _nameToRegisterWithResolver = t => null;
+        private Func<Type, ITypeLifetimeManager> _lifetimeManagerToRegisterWithResolver = t => new TransientLifetimeManager();
 
         /// <summary>
         /// Gets or sets lifetime manager to use to register type(s).
         /// </summary>
         /// <value>Lifetime manager.</value>
-        public LifetimeManager LifetimeManager
+        public ITypeLifetimeManager LifetimeManager
         {
             get
             {
@@ -83,7 +83,7 @@ namespace Unity.AutoRegistration
         /// </summary>
         /// <typeparam name="TLifetimeManager">The type of the lifetime manager.</typeparam>
         /// <returns>Fluent registration</returns>
-        public IFluentRegistration UsingLifetime<TLifetimeManager>() where TLifetimeManager : LifetimeManager, new()
+        public IFluentRegistration UsingLifetime<TLifetimeManager>() where TLifetimeManager : ITypeLifetimeManager, new()
         {
             _lifetimeManagerToRegisterWithResolver = t => new TLifetimeManager();
             return this;
@@ -94,7 +94,7 @@ namespace Unity.AutoRegistration
         /// </summary>
         /// <param name="lifetimeResolver">Lifetime manager resolver.</param>
         /// <returns>Fluent registration</returns>
-        public IFluentRegistration UsingLifetime(Func<Type, LifetimeManager> lifetimeResolver)
+        public IFluentRegistration UsingLifetime(Func<Type, ITypeLifetimeManager> lifetimeResolver)
         {
             if (lifetimeResolver == null)
                 throw new ArgumentNullException("lifetimeResolver");
@@ -109,7 +109,7 @@ namespace Unity.AutoRegistration
         /// <typeparam name="TLifetimeManager">The type of the lifetime manager.</typeparam>
         /// <param name="manager"></param>
         /// <returns>Fluent registration</returns>
-        public IFluentRegistration UsingLifetime<TLifetimeManager>(TLifetimeManager manager) where TLifetimeManager : LifetimeManager
+        public IFluentRegistration UsingLifetime<TLifetimeManager>(TLifetimeManager manager) where TLifetimeManager : ITypeLifetimeManager
         {
             if (manager == null)
                 throw new ArgumentNullException("manager");

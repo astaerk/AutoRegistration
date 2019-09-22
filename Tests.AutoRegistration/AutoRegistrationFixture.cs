@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Tests.Contracts;
 using Unity.AutoRegistration;
 using Moq;
-using Unity.Registration;
+using Unity.Injection;
 
 namespace Tests.AutoRegistration
 {
@@ -25,7 +25,7 @@ namespace Tests.AutoRegistration
         private Mock<IUnityContainer> _containerMock;
         private List<RegisterEvent> _registered;
         private IUnityContainer _container;
-        private delegate void RegistrationCallback(Type from, Type to, string name, LifetimeManager lifetime, InjectionMember[] ims);
+        private delegate void RegistrationCallback(Type from, Type to, string name, ITypeLifetimeManager lifetime, InjectionMember[] ims);
         private IUnityContainer _realContainer;
 
         [TestInitialize]
@@ -36,7 +36,7 @@ namespace Tests.AutoRegistration
             _containerMock = new Mock<IUnityContainer>();
             _registered = new List<RegisterEvent>();
             var setup = _containerMock
-                .Setup(c => c.RegisterType(It.IsAny<Type>(), It.IsAny<Type>(), It.IsAny<string>(), It.IsAny<LifetimeManager>()));
+                .Setup(c => c.RegisterType(It.IsAny<Type>(), It.IsAny<Type>(), It.IsAny<string>(), It.IsAny<ITypeLifetimeManager>()));
             var callback = new RegistrationCallback((from, to, name, lifetime, ips) =>
                 {
                     _registered.Add(new RegisterEvent(from, to, name, lifetime));
@@ -152,10 +152,10 @@ namespace Tests.AutoRegistration
             Assert.IsNotNull(iDisposableRegisterEvent);
             Assert.AreEqual(typeof(TestCache), iCacheRegisterEvent.To);
             Assert.AreEqual(typeof(TransientLifetimeManager), iCacheRegisterEvent.Lifetime.GetType());
-            Assert.AreEqual(String.Empty, iCacheRegisterEvent.Name);
+            Assert.AreEqual(null, iCacheRegisterEvent.Name);
             Assert.AreEqual(typeof(TestCache), iDisposableRegisterEvent.To);
             Assert.AreEqual(typeof(TransientLifetimeManager), iDisposableRegisterEvent.Lifetime.GetType());
-            Assert.AreEqual(String.Empty, iDisposableRegisterEvent.Name);
+            Assert.AreEqual(null, iDisposableRegisterEvent.Name);
         }
 
         [TestMethod]
@@ -311,9 +311,9 @@ namespace Tests.AutoRegistration
             public Type From { get; private set; }
             public Type To { get; private set; }
             public string Name { get; private set; }
-            public LifetimeManager Lifetime { get; private set; }
+            public ITypeLifetimeManager Lifetime { get; private set; }
 
-            public RegisterEvent(Type from, Type to, string name, LifetimeManager lifetime)
+            public RegisterEvent(Type from, Type to, string name, ITypeLifetimeManager lifetime)
             {
                 From = from;
                 To = to;

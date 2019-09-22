@@ -14,21 +14,21 @@ namespace Unity.AutoRegistration
         /// </summary>
         /// <typeparam name="TLifetimeManager">The type of the lifetime manager.</typeparam>
         /// <returns>Fluent registration</returns>
-        IFluentRegistration UsingLifetime<TLifetimeManager>() where TLifetimeManager : LifetimeManager, new();
+        IFluentRegistration UsingLifetime<TLifetimeManager>() where TLifetimeManager : ITypeLifetimeManager, new();
 
         /// <summary>
         /// Specifies lifetime manager resolver function, that by given type return lifetime manager to use when registering type
         /// </summary>
         /// <param name="lifetimeResolver">Lifetime manager resolver.</param>
         /// <returns>Fluent registration</returns>
-        IFluentRegistration UsingLifetime(Func<Type, LifetimeManager> lifetimeResolver);
+        IFluentRegistration UsingLifetime(Func<Type, ITypeLifetimeManager> lifetimeResolver);
 
         /// <summary>
         /// Specifies lifetime manager to use when registering type
         /// </summary>
         /// <typeparam name="TLifetimeManager">The type of the lifetime manager.</typeparam>
         /// <returns>Fluent registration</returns>
-        IFluentRegistration UsingLifetime<TLifetimeManager>(TLifetimeManager manager) where TLifetimeManager : LifetimeManager;
+        IFluentRegistration UsingLifetime<TLifetimeManager>(TLifetimeManager manager) where TLifetimeManager : ITypeLifetimeManager;
 
         /// <summary>
         /// Specifies ContainerControlledLifetimeManager lifetime manager to use when registering type

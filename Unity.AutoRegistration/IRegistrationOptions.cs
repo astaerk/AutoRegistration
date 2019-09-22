@@ -13,7 +13,7 @@ namespace Unity.AutoRegistration
         /// Gets or sets lifetime manager to use to register type(s).
         /// </summary>
         /// <value>Lifetime manager.</value>
-        LifetimeManager LifetimeManager { get; set; }
+        ITypeLifetimeManager LifetimeManager { get; set; }
 
         /// <summary>
         /// Gets or sets name to register type(s) with.
