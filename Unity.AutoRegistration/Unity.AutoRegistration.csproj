@@ -19,11 +19,11 @@ Rules for determining whether to include/exclude types/assemblies are predicates
     <Authors>agovorov,astaerk</Authors>
     <Company>agovorov,astaerk</Company>
     <NeutralLanguage>en-AU</NeutralLanguage>
-    <VersionPrefix>2.1.0</VersionPrefix>
+    <VersionPrefix>2.2.0</VersionPrefix>
     <VersionSuffix Condition=" $(TF_BUILD)!='true' ">alpha</VersionSuffix>
     <AssemblyVersion>2.2.0.0</AssemblyVersion>
     <FileVersion>2.2.0.0</FileVersion>
-    <InformationalVersion>2.1.0.0</InformationalVersion>
+    <InformationalVersion>2.2.0.0</InformationalVersion>
     <PackageLicenseUrl>https://github.com/astaerk/AutoRegistration/blob/master/LICENSE.md</PackageLicenseUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/astaerk/AutoRegistration</PackageProjectUrl>
