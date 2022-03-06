@@ -33,7 +33,7 @@ Rules for determining whether to include/exclude types/assemblies are predicates
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
-	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.6|AnyCPU'">
