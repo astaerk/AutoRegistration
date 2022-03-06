@@ -36,18 +36,12 @@ namespace Tests.AutoRegistration
             _containerMock = new Mock<IUnityContainer>();
             _registered = new List<RegisterEvent>();
             var setup = _containerMock
-                .Setup(c => c.RegisterType(It.IsAny<Type>(), It.IsAny<Type>(), It.IsAny<string>(), It.IsAny<ITypeLifetimeManager>()));
-            var callback = new RegistrationCallback((from, to, name, lifetime, ips) =>
+                .Setup(c => c.RegisterType(It.IsAny<Type>(), It.IsAny<Type>(), It.IsAny<string>(), It.IsAny<ITypeLifetimeManager>()))
+                .Callback<Type, Type, string, ITypeLifetimeManager, InjectionMember[]>((from, to, name, lifetime, ips) =>
                 {
                     _registered.Add(new RegisterEvent(from, to, name, lifetime));
                     _realContainer.RegisterType(from, to, name, lifetime);
                 });
-            
-            // Using reflection, because current version of Moq doesn't support callbacks with more than 4 arguments
-            setup
-                .GetType()
-                .GetMethod("SetCallbackWithArguments", BindingFlags.NonPublic | BindingFlags.Instance)
-                .Invoke(setup, new object[] {callback});
 
             _container = _containerMock.Object;
         }
