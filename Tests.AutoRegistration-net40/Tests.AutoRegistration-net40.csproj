@@ -4,6 +4,7 @@
 	<TargetFrameworks>net45</TargetFrameworks>
 	
 	<IsPackable>false</IsPackable>
+	<IsPublishable>false</IsPublishable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net45|AnyCPU'">

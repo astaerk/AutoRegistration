@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.0</TargetFramework>
+
+	<IsPackable>false</IsPackable>
+	<IsPublishable>false</IsPublishable>
   </PropertyGroup>
 
 </Project>
