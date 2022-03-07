@@ -260,6 +260,10 @@ namespace Tests.AutoRegistration
                     .Name);
         }
 
+        /// <summary>
+        /// test to ensure, that each test platform uses the correct assembly that it should use
+        /// (we already had problems with that in the past)
+        /// </summary>
         [TestMethod]
         [TestCategory(TESTCATEGORY)]
         public void TestPlatformUsesCorrectTargetPlatformAssembly()
@@ -292,6 +296,12 @@ namespace Tests.AutoRegistration
 #elif NETCOREAPP1_1
             expectedTargetFramework = TargetFramework.netstandard1_6;
 #elif NETCOREAPP2_0
+            expectedTargetFramework = TargetFramework.netstandard2_0;
+#elif NETCOREAPP3_0
+            expectedTargetFramework = TargetFramework.netstandard2_0;
+#elif NET5_0
+            expectedTargetFramework = TargetFramework.netstandard2_0;
+#elif NET6_0
             expectedTargetFramework = TargetFramework.netstandard2_0;
 #else
             throw new Exception("unknown testing platform");
